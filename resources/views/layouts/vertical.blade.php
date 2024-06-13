@@ -34,7 +34,6 @@
 
     </div>
 
-    @include('layouts.shared/right-sidebar')
     @include('layouts.shared/footer-script')
     @vite(['resources/js/app.js', 'resources/js/layout.js'])
     @yield('script')
