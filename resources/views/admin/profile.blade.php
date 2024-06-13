@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['page_title' => 'Profile', 'mode' => $mode ?? '', 'demo' => $demo ?? ''])
+@extends('admin.layouts.vertical', ['page_title' => 'Profile', 'mode' => $mode ?? '', 'demo' => $demo ?? ''])
 
 @section('css')
 @endsection
@@ -13,7 +13,7 @@
                 <div class="page-title-box">
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Attex</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Attexxx</a></li>
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
                             <li class="breadcrumb-item active">Profile</li>
                         </ol>

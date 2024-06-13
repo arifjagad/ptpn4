@@ -12,9 +12,9 @@
 <body>
     <div class="wrapper">
 
-        @include('layouts.shared/topbar')
+        @include('admin.layouts/topbar')
 
-        @include('layouts.shared/left-sidebar')
+        @include('admin.layouts/left-sidebar')
 
         <!-- ============================================================== -->
         <!-- Start Page Content here -->

@@ -26,7 +26,7 @@
     <div class="h-100" id="leftside-menu-container" data-simplebar>
         <!-- Leftbar User -->
         <div class="leftbar-user">
-            <a href="{{ route('second', ['pages', 'profile']) }}">
+            <a href="{{ route('any', ['profile']) }}">
                 <img src="/images/users/avatar-1.jpg" alt="user-image" height="42" class="rounded-circle shadow-sm">
                 <span class="leftbar-user-name mt-2">Tosha Minner</span>
             </a>
@@ -38,7 +38,7 @@
             <li class="side-nav-title">Navigation</li>
 
             <li class="side-nav-item">
-                <a href="{{ route('any', 'index') }}" class="side-nav-link">
+                <a href="{{ route('any', ['dashboard']) }}" class="side-nav-link">
                     <i class="ri-home-4-line"></i>
                     <span> Dashboards </span>
                 </a>

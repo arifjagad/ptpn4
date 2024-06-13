@@ -23,7 +23,15 @@ class RoutingController extends Controller
     public function index(Request $request)
     {
         if (Auth::user()) {
-            return redirect('index');
+            $userType = Auth::user()->user_type;
+            switch ($userType) {
+                case 'admin':
+                    return redirect('admin/dashboard');
+                case 'karyawan':
+                    return redirect('karyawan/dashboard');
+                case 'mandor':
+                    return redirect('mandor/dashboard');
+            }
         } else {
             return redirect('login');
         }
@@ -37,13 +45,26 @@ class RoutingController extends Controller
     public function root(Request $request, $first)
     {
 
-        $mode = $request->query('mode');
-        $demo = $request->query('demo');
+        // $mode = $request->query('mode');
+        // $demo = $request->query('demo');
      
-        if ($first == "assets")
-            return redirect('home');
+        // if ($first == "assets")
+        //     return redirect('home');
 
-        return view($first, ['mode' => $mode, 'demo' => $demo]);
+        // return view($first, ['mode' => $mode, 'demo' => $demo]);
+        if (Auth::user()) {
+            $userType = Auth::user()->user_type;
+            switch ($userType) {
+                case 'admin':
+                    return redirect('admin/dashboard');
+                case 'karyawan':
+                    return redirect('karyawan/dashboard');
+                case 'mandor':
+                    return redirect('mandor/dashboard');
+            }
+        } else {
+            return redirect('login');
+        }
     }
 
     /**

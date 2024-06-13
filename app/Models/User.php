@@ -20,6 +20,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_type',
+    ];
+    
+    protected $attributes = [
+        'user_type' => 'karyawan',
     ];
 
     /**
