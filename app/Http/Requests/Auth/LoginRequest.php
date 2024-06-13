@@ -8,9 +8,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class LoginRequest extends FormRequest
 {
+    public $isSecondaryLoginKaryawanPelaksana = false;
+    public $isSecondaryLoginKaryawanPimpinan = false;
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,11 +32,11 @@ class LoginRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'email' => 'required|string|email',
-            'password' => 'required|string',
+            'identifier' => ['required', 'string'],
+            'password' => ['required', 'string'],
         ];
     }
 
@@ -41,19 +47,60 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate()
+    public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
 
-        if (!Auth::attempt($this->only('email', 'password'), $this->filled('remember'))) {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
-            ]);
+        // Try to authenticate with email/password
+        if (Auth::attempt(['email' => $this->identifier, 'password' => $this->password])) {
+            RateLimiter::clear($this->throttleKey());
+            Log::info('Authenticated with email/password');
+            return;
         }
 
-        RateLimiter::clear($this->throttleKey());
+        // Mengecek data yang dikirim sama atau tidak dari tabel dan kolom KARYAWAN PELAKSANA
+        $userFP = DB::connection('sqlsrv_second')
+            ->table('FPERSUTAMA')
+            ->where('UPAKM', $this->identifier) // Dianggap username
+            ->where('UPAKM', $this->password) // Dianggap password
+            ->first();
+
+        // Pengecekan apakah login berdasarkan data yang ditemukan
+
+        if ($userFP) {
+            Session::put('nik', $userFP->NIK);
+            Session::put('isSecondaryLoginKaryawanPelaksana', true); // Store the flag in session
+            Auth::loginUsingId($userFP->NIKSAP); // Auth
+            $this->isSecondaryLoginKaryawanPelaksana = true; // Dianggap login dari database kedua
+            RateLimiter::clear($this->throttleKey());
+            Log::info('Authenticated with PERSUTAMA', ['user' => $userFP]);
+            return;
+        }
+
+        // Mengecek data yang dikirim sama atau tidak dari tabel dan kolom KARYAWAN PIMPINAN
+        $userP = DB::connection('sqlsrv_second')
+            ->table('PERSUTAMA')
+            ->where('NIK', $this->identifier) // Dianggap username
+            ->whereRaw("PWDCOMPARE('$this->password', UPAX, 0) = 1") // Dianggap password (ada enkripsi)
+            ->first();
+        
+        // Pengecekan apakah login berdasarkan data yang ditemukan
+        if ($userP) {
+            Session::put('nik', $userP->NIK);
+            Session::put('isSecondaryLoginKaryawanPimpinan', true); // Store the flag in session
+            Auth::loginUsingId($userP->NIKSAP); // Auth
+            $this->isSecondaryLoginKaryawanPimpinan = true; // Dianggap login dari database kedua
+            RateLimiter::clear($this->throttleKey());
+            Log::info('Authenticated with PERSUTAMA', ['user' => $userP]);
+            return;
+        }
+        
+        RateLimiter::hit($this->throttleKey());
+        Log::error('Authentication failed', ['identifier' => $this->identifier]);
+        
+        throw ValidationException::withMessages([
+            'identifier' => trans('auth.failed'),
+        ]);
     }
 
     /**

@@ -49,7 +49,11 @@ class RoutingController extends Controller
         if ($first == "assets")
             return redirect('home');
 
-        return view($userType .'.'. $first, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+        if (Auth::user()->user_type === 'karyawan pimpinan' || Auth::user()->user_type === 'karyawan pelaksana') { 
+            return view('karyawan' .'.'. $first, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+        } else {
+            return view($userType .'.'. $first, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+        }
     }
 
     /**
@@ -62,7 +66,11 @@ class RoutingController extends Controller
         if ($first == "assets")
             return redirect('home');
 
-        return view($userType . '.' . $first . '.' . $second, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+        if (Auth::user()->user_type === 'karyawan pimpinan' || Auth::user()->user_type === 'karyawan pelaksana') { 
+            return view('karyawan' .'.'. $first . '.' . $second, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+        } else {
+            return view($userType .'.'. $first . '.' . $second, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+        }
     }
 
     /**
@@ -75,6 +83,10 @@ class RoutingController extends Controller
         if ($first == "assets")
             return redirect('home');
 
-        return view($userType . '.' . $first . '.' . $second . '.' . $third, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+        if (Auth::user()->user_type === 'karyawan pimpinan' || Auth::user()->user_type === 'karyawan pelaksana') { 
+            return view('karyawan' .'.'. $first . '.' . $second . '.' . $third, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+        } else {
+            return view($userType .'.'. $first . '.' . $second . '.' . $third, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+        }
     }
 }

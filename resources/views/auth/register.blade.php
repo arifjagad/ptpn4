@@ -44,7 +44,7 @@
                                     <label for="user_type" class="form-label">Role</label>
                                     <select class="form-select" name="user_type" id="user_type" required>
                                         <option value="mandor">Mandor</option>
-                                        <option value="karyawan pelaksana">Karyawan</option>
+                                        <option value="karyawan">Karyawan</option>
                                     </select>
                                 </div>
 

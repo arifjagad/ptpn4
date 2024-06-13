@@ -39,15 +39,15 @@
                                 @endif
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="emailaddress" class="form-label">Email address</label>
-                                    <input class="form-control" type="email" id="emailaddress" required="" placeholder="Enter your email" value="attex@coderthemes.com" name="email">
+                                    <label for="identifier" class="form-label">Email address</label>
+                                    <input class="form-control" type="text" id="identifier" required="" placeholder="" value="00.00.P.30734" name="identifier">
                                 </div>
 
                                 <div class="mb-3">
                                     {{-- <a href="{{ route('second', ['auth', 'recoverpw']) }}" class="text-muted float-end fs-12">Forgot your password?</a> --}}
                                     <label for="password" class="form-label">Password</label>
                                     <div class="input-group input-group-merge">
-                                        <input type="password" id="password" class="form-control" placeholder="Enter your password" value="password" name="password">
+                                        <input type="password" id="password" class="form-control" placeholder="Enter your password" value="123456" name="password">
                                         <div class="input-group-text" data-password="false">
                                             <span class="password-eye"></span>
                                         </div>

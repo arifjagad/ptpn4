@@ -7,6 +7,10 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use App\Models\KaryawanPelaksana;
+use App\Models\KaryawanPimpinan;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -33,6 +37,24 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        if (Session::get('isSecondaryLoginKaryawanPimpinan')) {
+            $user = 6; // Akun karyawan pimpinan
+            Auth::loginUsingId($user);
+            $nik = Session::get('nik');
+            $user = KaryawanPimpinan::where('NIK', $nik)->first();
+            //dd($user);
+            return redirect('/dashboard');
+        }
+
+        if (Session::get('isSecondaryLoginKaryawanPelaksana')) {
+            $user = 7; // Akun karyawan pelaksana
+            Auth::loginUsingId($user);
+            $nik = Session::get('nik');
+            $user = KaryawanPelaksana::where('NIK', $nik)->first();
+            //dd($user);
+            return redirect('/dashboard');
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
