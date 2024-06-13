@@ -2,7 +2,7 @@
 <div class="leftside-menu">
 
     <!-- Brand Logo Light -->
-    <a href="{{ route('any', ['dashboard']) }}" class="logo logo-light">
+    <a href="{{ route('any', 'dashboard') }}" class="logo logo-light">
         {{-- <span class="logo-lg">
             <img src="/images/logo.png" alt="logo">
         </span>

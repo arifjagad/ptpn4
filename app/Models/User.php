@@ -22,10 +22,6 @@ class User extends Authenticatable
         'password',
         'user_type',
     ];
-    
-    protected $attributes = [
-        'user_type' => 'karyawan',
-    ];
 
     /**
      * The attributes that should be hidden for arrays.

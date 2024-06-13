@@ -44,27 +44,12 @@ class RoutingController extends Controller
      */
     public function root(Request $request, $first)
     {
+        $userType = Auth::user()->user_type;
 
-        // $mode = $request->query('mode');
-        // $demo = $request->query('demo');
-     
-        // if ($first == "assets")
-        //     return redirect('home');
+        if ($first == "assets")
+            return redirect('home');
 
-        // return view($first, ['mode' => $mode, 'demo' => $demo]);
-        if (Auth::user()) {
-            $userType = Auth::user()->user_type;
-            switch ($userType) {
-                case 'admin':
-                    return redirect('admin/dashboard');
-                case 'karyawan':
-                    return redirect('karyawan/dashboard');
-                case 'mandor':
-                    return redirect('mandor/dashboard');
-            }
-        } else {
-            return redirect('login');
-        }
+        return view($userType .'.'. $first, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
     }
 
     /**
@@ -72,16 +57,12 @@ class RoutingController extends Controller
      */
     public function secondLevel(Request $request, $first, $second)
     {
-
-        $mode = $request->query('mode');
-        $demo = $request->query('demo');
+        $userType = Auth::user()->user_type;
 
         if ($first == "assets")
             return redirect('home');
 
-
-
-    return view($first .'.'. $second, ['mode' => $mode, 'demo' => $demo]);
+        return view($userType . '.' . $first . '.' . $second, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
     }
 
     /**
@@ -89,12 +70,11 @@ class RoutingController extends Controller
      */
     public function thirdLevel(Request $request, $first, $second, $third)
     {
-        $mode = $request->query('mode');
-        $demo = $request->query('demo');
+        $userType = Auth::user()->user_type;
 
         if ($first == "assets")
             return redirect('home');
 
-        return view($first . '.' . $second . '.' . $third, ['mode' => $mode, 'demo' => $demo]);
+        return view($userType . '.' . $first . '.' . $second . '.' . $third, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
     }
 }

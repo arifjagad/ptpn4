@@ -2,7 +2,7 @@
 <div class="leftside-menu">
 
     <!-- Brand Logo Light -->
-    <a href="{{ route('any', ['dashboard']) }}" class="logo logo-light">
+    <a href="{{ route('any', 'dashboard') }}" class="logo logo-light">
         {{-- <span class="logo-lg">
             <img src="/images/logo.png" alt="logo">
         </span>
@@ -46,7 +46,7 @@
 
             <li class="side-nav-title">Data PTPN IV</li>
 
-            <li class="side-nav-item">
+            {{-- <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
                     <i class="ri-group-line"></i>
                     <span> Data Karyawan </span>
@@ -65,7 +65,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
 
             <li class="side-nav-item">
                 <a href="{{ route('second', ['apps', 'file-manager']) }}" class="side-nav-link">
