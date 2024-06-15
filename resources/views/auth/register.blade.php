@@ -16,10 +16,8 @@
                     <div class="card">
                         <!-- Logo-->
                         <div class="card-header py-4 text-center bg-primary">
-                            <a href="{{ route('any', 'index') }}ml">
-                                {{-- <span><img src="/im>ages/logo.png" alt="logo" height="22"></span> --}}
-                                <h3 class="text-white">PTPN IV REGIONAL I</h3>
-                            </a>
+                            {{-- <span><img src="/im>ages/logo.png" alt="logo" height="22"></span> --}}
+                            <h3 class="text-white">PTPN IV REGIONAL I</h3>
                         </div>
 
                         <div class="card-body p-4">
@@ -75,8 +73,8 @@
                     <div class="row mt-3">
                         <div class="col-12 text-center">
                             <p class="text-muted bg-body">Already have account? <a
-                                    href="{{ route('any', ['login']) }}"
-                                    class="text-muted ms-1 link-offset-3 text-decoration-underline"><b>Log In</b></a>
+                                href="{{ route('login') }}"
+                                class="text-muted ms-1 link-offset-3 text-decoration-underline"><b>Log In</b></a>
                             </p>
                         </div> <!-- end col-->
                     </div>

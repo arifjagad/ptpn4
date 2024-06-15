@@ -75,7 +75,7 @@
                         <h5 class="my-0">
                             {{ auth()->user()->name }}
                         </h5>
-                        <h6 class="my-0 fw-normal">Founder</h6>
+                        <h6 class="my-0 fw-normal">{{ auth()->user()->user_type }}</h6>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated profile-dropdown">
@@ -85,13 +85,13 @@
                     </div>
 
                     <!-- item-->
-                    <a href="{{ route('any', ['profile']) }}" class="dropdown-item">
+                    <a href="#" class="dropdown-item">
                         <i class="ri-account-circle-line fs-18 align-middle me-1"></i>
                         <span>My Account</span>
                     </a>
 
                     <!-- item-->
-                    <a href="{{ route('second', ['pages', 'faq']) }}" class="dropdown-item">
+                    <a href="#" class="dropdown-item">
                         <i class="ri-customer-service-2-line fs-18 align-middle me-1"></i>
                         <span>Support</span>
                     </a>

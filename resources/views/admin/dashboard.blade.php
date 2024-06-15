@@ -1,4 +1,4 @@
-@extends('admin.layouts.vertical', ['page_title' => 'Dashboard', 'mode' => $mode ?? '', 'demo' => $demo ?? ''])
+@extends('admin.layouts.vertical', ['page_title' => 'Dashboard'])
 
 @section('css')
     @vite(['node_modules/daterangepicker/daterangepicker.css', 'node_modules/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css'])

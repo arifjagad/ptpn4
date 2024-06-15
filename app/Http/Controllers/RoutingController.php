@@ -50,9 +50,9 @@ class RoutingController extends Controller
             return redirect('home');
 
         if (Auth::user()->user_type === 'karyawan pimpinan' || Auth::user()->user_type === 'karyawan pelaksana') { 
-            return view('karyawan' .'.'. $first, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+            return view('karyawan' .'.'. $first);
         } else {
-            return view($userType .'.'. $first, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+            return view($userType .'.'. $first);
         }
     }
 
@@ -67,9 +67,9 @@ class RoutingController extends Controller
             return redirect('home');
 
         if (Auth::user()->user_type === 'karyawan pimpinan' || Auth::user()->user_type === 'karyawan pelaksana') { 
-            return view('karyawan' .'.'. $first . '.' . $second, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+            return view('karyawan' .'.'. $first . '.' . $second);
         } else {
-            return view($userType .'.'. $first . '.' . $second, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+            return view($first . '.' . $second);
         }
     }
 
@@ -84,9 +84,9 @@ class RoutingController extends Controller
             return redirect('home');
 
         if (Auth::user()->user_type === 'karyawan pimpinan' || Auth::user()->user_type === 'karyawan pelaksana') { 
-            return view('karyawan' .'.'. $first . '.' . $second . '.' . $third, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+            return view('karyawan' .'.'. $first . '.' . $second . '.' . $third);
         } else {
-            return view($userType .'.'. $first . '.' . $second . '.' . $third, ['mode' => $request->query('mode'), 'demo' => $request->query('demo')]);
+            return view($first . '.' . $second . '.' . $third);
         }
     }
 }

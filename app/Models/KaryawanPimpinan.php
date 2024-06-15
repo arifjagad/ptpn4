@@ -11,9 +11,6 @@ class KaryawanPimpinan extends Model
 
     protected $connection = 'sqlsrv_second';
     protected $table = 'PERSUTAMA';
-    // protected $primaryKey = 'NAMA';
-    // public $incrementing = false;
-    // protected $keyType = 'string';
     
     protected $fillable = [
         'NIK',
