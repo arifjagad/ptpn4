@@ -16,10 +16,10 @@
 
                         <!-- Logo -->
                         <div class="card-header py-4 text-center bg-primary">
-                            <a href="{{ route('any', 'index') }}ml">
-                                {{-- <span><img src="/im>ages/logo.png" alt="logo" height="22"></span> --}}
+                            {{-- <a href="{{ route('index') }}">
                                 <h3 class="text-white">PTPN IV REGIONAL I</h3>
-                            </a>
+                            </a> --}}
+                            <h3 class="text-white">PTPN IV REGIONAL I</h3>
                         </div>
 
                         <div class="card-body p-4">
@@ -49,7 +49,7 @@
                                     <div class="input-group input-group-merge">
                                         <input type="password" id="password" class="form-control" placeholder="Enter your password" value="123456" name="password">
                                         <div class="input-group-text" data-password="false">
-                                            <span class="password-eye"></span>
+                                            <spy class="password-eye"></spy>
                                         </div>
                                     </div>
                                 </div>
@@ -65,7 +65,7 @@
 
                     <div class="row mt-3">
                         <div class="col-12 text-center">
-                            <p class="text-muted bg-body">Don't have an account? <a href="{{ route('any', ['register']) }}" class="text-muted ms-1 link-offset-3 text-decoration-underline"><b>Sign Up</b></a></p>
+                            <p class="text-muted bg-body">Don't have an account? <a href="{{ route('register') }}" class="text-muted ms-1 link-offset-3 text-decoration-underline"><b>Sign Up</b></a></p>
                         </div> <!-- end col -->
                     </div>
                     <!-- end row -->

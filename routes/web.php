@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
-
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\KaryawanPelaksanaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,30 +18,29 @@ use App\Http\Controllers\RoutingController;
 
 require __DIR__ . '/auth.php';
 
+/*  */
+
+Route::prefix('admin')->group(base_path('routes/admin/web.php'));
+
+// Route::group(['prefix' => 'karyawan', 'middleware' => ['auth', 'user_type:karyawan']], function () {
+// });
+
+// Route::group(['prefix' => 'mandor', 'middleware' => ['auth', 'user_type:mandor']], function () {
+// });
+
 Route::group(['prefix' => '/', 'middleware'=>'auth'], function () {
-    Route::get('', [RoutingController::class, 'index'])->name('root');
-    Route::get('{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('third');
-    Route::get('{first}/{second}', [RoutingController::class, 'secondLevel'])->name('second');
-    Route::get('{any}', [RoutingController::class, 'root'])->name('any');
+    Route::redirect('/', '/login'); 
+    Route::get('/dashboard', function () {
+        if (auth()->user()->user_type === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif (auth()->user()->user_type === 'karyawan' || 'karyawan pimpinan' || 'karyawan pelaksana') {
+            return redirect()->route('karyawan.dashboard');
+        } elseif (auth()->user()->user_type === 'mandor') {
+            return redirect()->route('mandor.dashboard');
+        } else {
+            return redirect('/'); 
+        }
+    });
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'user_type:admin']], function () {
-    Route::get('/', fn() => view('admin.dashboard'))->name('admin.dashboard');
-    Route::get('/{any}', [RoutingController::class, 'root'])->name('admin.any');
-    Route::get('/{first}/{second}', [RoutingController::class, 'secondLevel'])->name('admin.second');
-    Route::get('/{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('admin.third');
-});
 
-Route::group(['prefix' => 'karyawan', 'middleware' => ['auth', 'user_type:karyawan']], function () {
-    Route::get('/', fn() => view('karyawan.dashboard'))->name('karyawan.dashboard');
-    Route::get('/{any}', [RoutingController::class, 'root'])->name('karyawan.any');
-    Route::get('/{first}/{second}', [RoutingController::class, 'secondLevel'])->name('karyawan.second');
-    Route::get('/{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('karyawan.third');
-});
-
-Route::group(['prefix' => 'mandor', 'middleware' => ['auth', 'user_type:mandor']], function () {
-    Route::get('/', fn() => view('mandor.dashboard'))->name('mandor.dashboard');
-    Route::get('/admin/{any}', [RoutingController::class, 'root'])->name('mandor.any');
-    Route::get('/{first}/{second}', [RoutingController::class, 'secondLevel'])->name('mandor.second');
-    Route::get('/{first}/{second}/{third}', [RoutingController::class, 'thirdLevel'])->name('mandor.third');
-});

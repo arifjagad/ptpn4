@@ -11,9 +11,6 @@ class KaryawanPelaksana extends Model
 
     protected $connection = 'sqlsrv_second';
     protected $table = 'FPERSUTAMA';
-    // protected $primaryKey = 'NIK';
-    // public $incrementing = false;
-    // protected $keyType = 'string';
     
     protected $fillable = [
         'NIK',
@@ -22,7 +19,7 @@ class KaryawanPelaksana extends Model
         'JABATAN',
         'KELAMIN',
         'BIDANG',
-        'hp',
+        'noPhone',
         'MBT'
     ];
 }
