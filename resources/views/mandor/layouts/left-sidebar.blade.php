@@ -2,7 +2,7 @@
 <div class="leftside-menu">
 
     <!-- Brand Logo Light -->
-    <a href="{{ route('any', 'dashboard') }}" class="logo logo-light">
+    <a href="#" class="logo logo-light">
         {{-- <span class="logo-lg">
             <img src="/images/logo.png" alt="logo">
         </span>
@@ -26,7 +26,7 @@
     <div class="h-100" id="leftside-menu-container" data-simplebar>
         <!-- Leftbar User -->
         <div class="leftbar-user">
-            <a href="{{ route('any', ['profile']) }}">
+            <a href="#">
                 <img src="/images/users/avatar-1.jpg" alt="user-image" height="42" class="rounded-circle shadow-sm">
                 <span class="leftbar-user-name mt-2">Tosha Minner</span>
             </a>
@@ -38,9 +38,9 @@
             <li class="side-nav-title">Navigation</li>
 
             <li class="side-nav-item">
-                <a href="{{ route('any', ['dashboard']) }}" class="side-nav-link">
+                <a href="{{ url('mandor/dashboard') }}" class="side-nav-link">
                     <i class="ri-home-4-line"></i>
-                    <span> Dashboards </span>
+                    <span> Dashboard </span>
                 </a>
             </li>
 
@@ -52,7 +52,7 @@
                     <span> Data Karyawan </span>
                     <span class="menu-arrow"></span>
                 </a>
-                <div class="collapse" id="sidebarEmail">
+                {{-- <div class="collapse" id="sidebarEmail">
                     <ul class="side-nav-second-level">
                         <li>
                             <a href="{{ route('second', ['email', 'inbox']) }}">Karyawan Pelaksana</a>
@@ -64,25 +64,25 @@
                             <a href="{{ route('second', ['email', 'read']) }}">Tamu</a>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
             </li>
 
             <li class="side-nav-item">
-                <a href="{{ route('second', ['apps', 'file-manager']) }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="ri-calendar-event-line"></i>
                     <span> Daftar Kegiatan </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="{{ route('second', ['apps', 'file-manager']) }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="ri-booklet-line"></i>
                     <span> Data Kuesioner </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="{{ route('second', ['apps', 'file-manager']) }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="ri-survey-line"></i>
                     <span> Daftar Pertanyaan </span>
                 </a>
@@ -91,21 +91,14 @@
             <li class="side-nav-title">Data Mandor</li>
 
             <li class="side-nav-item">
-                <a href="{{ route('second', ['apps', 'file-manager']) }}" class="side-nav-link">
-                    <i class="ri-group-line"></i>
-                    <span> Daftar Mandor </span>
-                </a>
-            </li>
-
-            <li class="side-nav-item">
-                <a href="{{ route('second', ['apps', 'file-manager']) }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="ri-group-line"></i>
                     <span> Daftar Supir </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="{{ route('second', ['apps', 'file-manager']) }}" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="ri-roadster-line"></i>
                     <span> Daftar Mobil </span>
                 </a>
