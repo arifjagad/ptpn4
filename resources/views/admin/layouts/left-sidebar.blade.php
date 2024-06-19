@@ -98,7 +98,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ url('admin/list-supir') }}" class="side-nav-link">
                     <i class="ri-group-line"></i>
                     <span> Daftar Supir </span>
                 </a>

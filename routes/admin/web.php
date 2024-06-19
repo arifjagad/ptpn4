@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\KaryawanPelaksanaController;
 use App\Http\Controllers\Admin\KaryawanPimpinanController;
 use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\Admin\MandorController;
+use App\Http\Controllers\Admin\SupirController;
 
 Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -18,4 +19,6 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:admin']], fun
     Route::get('/list-kegiatan/{id}', [KegiatanController::class, 'show'])->name('kegiatan.show');
 
     Route::get('/list-mandor', [MandorController::class, 'index'])->name('admin.list-mandor');
+
+    Route::get('/list-supir', [SupirController::class, 'index'])->name('admin.list-supir');
 });
