@@ -68,7 +68,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ url('admin/list-kegiatan') }}" class="side-nav-link">
                     <i class="ri-calendar-event-line"></i>
                     <span> Daftar Kegiatan </span>
                 </a>
