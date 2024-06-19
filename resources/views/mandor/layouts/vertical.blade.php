@@ -13,7 +13,7 @@
     <div class="wrapper">
 
         @include('mandor.layouts/topbar')
-
+        @include('sweetalert::alert')
         @include('mandor.layouts/left-sidebar')
 
         <!-- ============================================================== -->

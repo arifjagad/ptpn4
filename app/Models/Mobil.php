@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class Mobil extends Model
 {
@@ -20,20 +22,17 @@ class Mobil extends Model
         'jumlah_km_awal',
     ];
 
-    // Jika Anda ingin menggunakan 'id' yang dihasilkan oleh Laravel sebagai primary key, Anda dapat menghilangkan properti $primaryKey
-
-    // Jika Anda menggunakan 'mobil_id' sebagai primary key, tambahkan kode berikut:
-    // protected $primaryKey = 'mobil_id';
-
-    // Definisikan casting untuk kolom 'spesifikasi'
+    protected $attributes = [
+        'status_pemakaian' => 'Tersedia', 
+    ];
 
     public function mandor()
     {
-        return $this->belongsTo(Mandor::class, 'mandor_id');
+        return $this->belongsTo(Mandor::class);
     }
 
-    public function scopeByMandorId($query, $mandorId)
-    {
-        return $query->where('mandor_id', $mandorId);
-    }
+    // public function scopeByMandorId($query, $mandorId)
+    // {
+    //     return $query->where('mandor_id', $mandorId);
+    // }
 }
