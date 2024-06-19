@@ -105,7 +105,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ url('admin/list-mobil') }}" class="side-nav-link">
                     <i class="ri-roadster-line"></i>
                     <span> Daftar Mobil </span>
                 </a>
