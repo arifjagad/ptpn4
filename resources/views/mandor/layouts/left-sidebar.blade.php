@@ -47,7 +47,7 @@
             <li class="side-nav-title">Data PTPN IV</li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ url('mandor/karyawan') }}" class="side-nav-link">
                     <i class="ri-group-line"></i>
                     <span> Karyawan Tamu </span>
                 </a>

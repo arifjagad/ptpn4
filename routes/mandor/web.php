@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mandor\DashboardController;
 use App\Http\Controllers\Mandor\SupirController;
 use App\Http\Controllers\Mandor\MobilController;
+use App\Http\Controllers\Mandor\KaryawanController;
 
 Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('mandor.dashboard');
@@ -21,4 +22,11 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], fu
     Route::post('/mobil/store', [MobilController::class, 'store'])->name('mobil.store');
     Route::put('/mobil/update/{mobil}', [MobilController::class, 'update'])->name('mobil.update');
     Route::delete('/mobil/{id}', [MobilController::class, 'destroy'])->name('mobil.destroy');
+
+    /* Route Karyawan */
+    Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
+    Route::get('/karyawan/form/{karyawan?}', [KaryawanController::class, 'form'])->name('karyawan.form');
+    Route::post('/karyawan/store', [KaryawanController::class, 'store'])->name('karyawan.store');
+    Route::put('/karyawan/update/{karyawan}', [KaryawanController::class, 'update'])->name('karyawan.update');
+    Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
 });

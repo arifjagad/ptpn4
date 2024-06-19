@@ -10,7 +10,6 @@ class Karyawan extends Model
 {
     use HasFactory;
 
-    protected $connection = 'sqlsrv';
     protected $table = 'karyawan';
 
     protected $fillable = [
@@ -19,7 +18,12 @@ class Karyawan extends Model
         'niksap',
         'jabatan',
         'nomor_telp',
-        'jenis_kelamin'
+        'jenis_kelamin',
+        'status_perjalanan',
+    ];
+
+    protected $attributes = [
+        'status_perjalanan' => 'Tersedia', 
     ];
 
     public function user()
