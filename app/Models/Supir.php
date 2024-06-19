@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Supir extends Model
 {
@@ -19,18 +20,21 @@ class Supir extends Model
         'jenis_kelamin',
         'status_supir',
         'status_perjalanan',
-
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'mandor_id', 'id')->whereHas('roles', function ($query) {
-            $query->where('role_id', 3);
-        });
-    }
+    protected $attributes = [
+        'status_perjalanan' => 'Tidak Beroperasi', 
+    ];
 
-    public function mandor()
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class, 'mandor_id', 'id')->whereHas('roles', function ($query) {
+    //         $query->where('role_id', 3);
+    //     });
+    // }
+
+    public function mandor(): BelongsTo
     {
-        return $this->belongsTo(Mandor::class, 'mandor_id');
+        return $this->belongsTo(Mandor::class);
     }
 }

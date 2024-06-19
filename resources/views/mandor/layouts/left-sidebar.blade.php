@@ -2,7 +2,7 @@
 <div class="leftside-menu">
 
     <!-- Brand Logo Light -->
-    <a href="#" class="logo logo-light">
+    <a href="{{ url('mandor/dashboard') }}" class="logo logo-light">
         {{-- <span class="logo-lg">
             <img src="/images/logo.png" alt="logo">
         </span>
@@ -47,24 +47,10 @@
             <li class="side-nav-title">Data PTPN IV</li>
 
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
+                <a href="#" class="side-nav-link">
                     <i class="ri-group-line"></i>
-                    <span> Data Karyawan </span>
-                    <span class="menu-arrow"></span>
+                    <span> Karyawan Tamu </span>
                 </a>
-                {{-- <div class="collapse" id="sidebarEmail">
-                    <ul class="side-nav-second-level">
-                        <li>
-                            <a href="{{ route('second', ['email', 'inbox']) }}">Karyawan Pelaksana</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('second', ['email', 'read']) }}">Karyawan Pimpinan</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('second', ['email', 'read']) }}">Tamu</a>
-                        </li>
-                    </ul>
-                </div> --}}
             </li>
 
             <li class="side-nav-item">
@@ -81,17 +67,10 @@
                 </a>
             </li>
 
-            <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
-                    <i class="ri-survey-line"></i>
-                    <span> Daftar Pertanyaan </span>
-                </a>
-            </li>
-
             <li class="side-nav-title">Data Mandor</li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ url('mandor/supir') }}" class="side-nav-link">
                     <i class="ri-group-line"></i>
                     <span> Daftar Supir </span>
                 </a>
