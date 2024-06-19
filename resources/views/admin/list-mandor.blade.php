@@ -1,4 +1,4 @@
-@extends('admin.layouts.vertical', ['page_title' => 'List Karyawan Tamu'])
+@extends('admin.layouts.vertical', ['page_title' => 'List Mandor'])
 
 @section('css')
     @vite([
@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">List User</h4>
+                    <h4 class="page-title">List Mandor</h4>
                 </div>
                 <div class="card">
                     <div class="card-body">
@@ -39,15 +39,15 @@
                             </div>
                         </div>
                         {{-- Table --}}
-                        <table id="datatable-karyawan-tamu" class="table table-striped dt-responsive nowrap table-striped w-100">
+                        <table id="datatable-list-mandor" class="table table-striped dt-responsive nowrap table-striped w-100">
                             <thead>
                                 <tr>
                                     <th>NIK</th>
                                     <th>NIK SAP</th>
-                                    <th>Nama Karyawan</th>
-                                    <th>Jabatan</th>
-                                    <th>Jenis Kelamin</th>
+                                    <th>Nama Mandor</th>
+                                    <th>Status Mandor</th>
                                     <th>Nomor Telp</th>
+                                    <th>Jenis Kelamin</th>
                                 </tr>
                             </thead>
                         </table>
@@ -56,6 +56,7 @@
             </div>
         </div>
         <!-- end page title -->
+
     </div> <!-- container -->
 @endsection
 
@@ -64,7 +65,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            var table = $('#datatable-karyawan-tamu').DataTable({
+            var table = $('#datatable-list-mandor').DataTable({
                 processing: true,
                 serverSide: true,
                 scrollX: true,
@@ -81,9 +82,9 @@
                     {data: 'nik', name: 'nik'},
                     {data: 'niksap', name: 'niksap'},
                     {data: 'user_name', name: 'user_name'},
-                    {data: 'jabatan', name: 'jabatan'},
-                    {data: 'jenis_kelamin', name: 'jenis_kelamin'},
+                    {data: 'status_mandor', name: 'status_mandor'},
                     {data: 'nomor_telp', name: 'nomor_telp'},
+                    {data: 'jenis_kelamin', name: 'jenis_kelamin'},
                 ],
             });
     

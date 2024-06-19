@@ -68,7 +68,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ url('admin/list-kegiatan') }}" class="side-nav-link">
                     <i class="ri-calendar-event-line"></i>
                     <span> Daftar Kegiatan </span>
                 </a>
@@ -91,21 +91,21 @@
             <li class="side-nav-title">Data Mandor</li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ url('admin/list-mandor') }}" class="side-nav-link">
                     <i class="ri-group-line"></i>
                     <span> Daftar Mandor </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ url('admin/list-supir') }}" class="side-nav-link">
                     <i class="ri-group-line"></i>
                     <span> Daftar Supir </span>
                 </a>
             </li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ url('admin/list-mobil') }}" class="side-nav-link">
                     <i class="ri-roadster-line"></i>
                     <span> Daftar Mobil </span>
                 </a>

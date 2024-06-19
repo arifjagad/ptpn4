@@ -1,9 +1,8 @@
-@extends('admin.layouts.vertical', ['page_title' => 'List Karyawan Tamu'])
+@extends('admin.layouts.vertical', ['page_title' => 'Daftar Mobil'])
 
 @section('css')
-    @vite([
+    @vite([ 
         'node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css',
-        'node_modules/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css',
         'node_modules/select2/dist/css/select2.min.css',
     ])
 @endsection
@@ -16,21 +15,22 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">List User</h4>
+                    <h4 class="page-title">Manajemen Mobil</h4>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Fixed Header</h4>
+                        <h4 class="header-title">Daftar Mobil</h4>
                         <p class="text-muted fs-14">
-                            The FixedHeader will freeze in place the header and/or footer in a DataTable, ensuring that title information will remain always visible.
+                            Tabel ini menampilkan daftar mobil yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
-                        <!-- Filters -->
+                        {{-- Filter --}}
                         <div class="d-flex justify-content-end gap-2 mb-2">
                             <div class="w-25">
-                                <select id="filter-jenis-kelamin" class="form-control select2" data-toggle="select2">
-                                    <option value="">Pilih Jenis Kelamin</option>
-                                    <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
+                                <select id="filter-status-pemakaian" class="form-control select2" data-toggle="select2">
+                                    <option value="">Pilih Status Pemakaian</option>
+                                    @foreach ($statusPemakaianList as $statusPemakaian)
+                                        <option value="{{ $statusPemakaian }}">{{ $statusPemakaian }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="flex items-center space-x-2">
@@ -38,16 +38,16 @@
                                 <button id="reset-button" class="btn btn-secondary">Reset</button>
                             </div>
                         </div>
-                        {{-- Table --}}
-                        <table id="datatable-karyawan-tamu" class="table table-striped dt-responsive nowrap table-striped w-100">
+                        {{-- List data table --}}
+                        <table id="datatable-mobil" class="table table-striped w-100 nowrap">
                             <thead>
                                 <tr>
-                                    <th>NIK</th>
-                                    <th>NIK SAP</th>
-                                    <th>Nama Karyawan</th>
-                                    <th>Jabatan</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Nomor Telp</th>
+                                    <th>Nama Mobil</th>
+                                    <th>Nama Mandor</th>
+                                    <th>Nopol</th>
+                                    <th>Status Pemakaian</th>
+                                    <th>Terakhir Beroperasi</th>
+                                    <th>KM Awal</th>
                                 </tr>
                             </thead>
                         </table>
@@ -56,42 +56,48 @@
             </div>
         </div>
         <!-- end page title -->
+
     </div> <!-- container -->
 @endsection
 
 @section('script')
     @vite(['resources/js/pages/demo.datatable-init.js'])
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- JS tampilkan data ke table --}}
     <script type="text/javascript">
         $(document).ready(function() {
-            var table = $('#datatable-karyawan-tamu').DataTable({
+            var table = $('#datatable-mobil').DataTable({
                 processing: true,
                 serverSide: true,
-                scrollX: true,
+                scrollY: true,
                 ordering: false,
                 'bDestroy': true,
                 ajax: {
                     url: '{{ url()->current() }}',
                     type: 'GET',
+                    /* Menjalankan filter */
                     data: function(d) {
-                        d.jenis_kelamin = $('#filter-jenis-kelamin').val();
+                        d.status_pemakaian = $('#filter-status-pemakaian').val();
                     },
                 },
+                /* Menampilkan kolom */
                 columns: [
-                    {data: 'nik', name: 'nik'},
-                    {data: 'niksap', name: 'niksap'},
-                    {data: 'user_name', name: 'user_name'},
-                    {data: 'jabatan', name: 'jabatan'},
-                    {data: 'jenis_kelamin', name: 'jenis_kelamin'},
-                    {data: 'nomor_telp', name: 'nomor_telp'},
+                    {data: 'nama_mobil', name: 'nama_mobil'},
+                    {data: 'nama_mandor', name: 'nama_mandor'},
+                    {data: 'nopol', name: 'nopol'},
+                    {data: 'status_pemakaian', name: 'status_pemakaian'},
+                    {data: 'tanggal_terakhir_beroperasi', name: 'tanggal_terakhir_beroperasi'},
+                    {data: 'jumlah_km_awal', name: 'jumlah_km_awal'},
                 ],
             });
     
+            /* Trigger action filter */
             $('#filter-button').on('click', function() {
                 table.ajax.reload();
             });
+            /* Trigger action reset */
             $('#reset-button').on('click', function() {
-                $('#filter-jenis-kelamin').val('').trigger('change');
+                $('select').val('').trigger('change');
                 table.ajax.reload();
             });
         });
