@@ -11,7 +11,6 @@ class Kegiatan extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $connection = 'sqlsrv';
     protected $table = 'kegiatan';
 
     protected $fillable = [
@@ -22,19 +21,19 @@ class Kegiatan extends Model
         'agenda',
         'tujuan',
         'tanggal_kegiatan',
-        'jumlah_km_akhir',
         'jumlah_km_awal',
+        'jumlah_km_akhir',
         'status_kegiatan',
     ];
 
-    protected $casts = [
-        'tujuan' => 'array',
-    ];
+    // protected $casts = [
+    //     'tujuan' => 'array',
+    // ];
 
-    public function setTujuanAttribute($value)
-    {
-        $this->attributes['tujuan'] = json_encode(array_map('trim', explode(',', $value)));
-    }
+    // public function setTujuanAttribute($value)
+    // {
+    //     $this->attributes['tujuan'] = json_encode(array_map('trim', explode(',', $value)));
+    // }
 
     public function getTujuanAttribute($value)
     {
@@ -66,8 +65,4 @@ class Kegiatan extends Model
         return $this->belongsTo(Mobil::class, 'mobil_id', 'id');
     }
 
-    // public function user()
-    // {
-    //     return $this->hasOne(User::class, 'user_id', 'id');
-    // }
 }

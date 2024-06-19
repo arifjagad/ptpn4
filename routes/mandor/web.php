@@ -5,6 +5,7 @@ use App\Http\Controllers\Mandor\DashboardController;
 use App\Http\Controllers\Mandor\SupirController;
 use App\Http\Controllers\Mandor\MobilController;
 use App\Http\Controllers\Mandor\KaryawanController;
+use App\Http\Controllers\Mandor\KegiatanController;
 
 Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('mandor.dashboard');
@@ -29,4 +30,15 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], fu
     Route::post('/karyawan/store', [KaryawanController::class, 'store'])->name('karyawan.store');
     Route::put('/karyawan/update/{karyawan}', [KaryawanController::class, 'update'])->name('karyawan.update');
     Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
+
+    /* Route Kegiatan */
+    Route::get('/kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
+    Route::get('/kegiatan/form/{kegiatan?}', [KegiatanController::class, 'form'])->name('kegiatan.form');
+    Route::post('/kegiatan/store', [KegiatanController::class, 'store'])->name('kegiatan.store');
+    Route::put('/kegiatan/update/{kegiatan}', [KegiatanController::class, 'update'])->name('kegiatan.update');
+    Route::delete('/kegiatan/{id}', [KegiatanController::class, 'destroy'])->name('kegiatan.destroy');
+
+    Route::get('/karyawan/{type}', [KegiatanController::class, 'getKaryawanByType'])->name('karyawan.byType');
+    Route::get('/kegiatan/{id}', [KegiatanController::class, 'show'])->name('kegiatan.show');
+
 });
