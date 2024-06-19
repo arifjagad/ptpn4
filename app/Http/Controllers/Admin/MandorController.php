@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Karyawan;
+use App\Models\Mandor;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Cache;
 
-class KaryawanController extends Controller
+class MandorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +20,9 @@ class KaryawanController extends Controller
             $jenisKelamin = $request->get('jenis_kelamin');
 
             // Cache 60 menit
-            $cacheKey = 'karyawan_data';
-            $karyawanData = Cache::remember($cacheKey, 60, function() use ($jenisKelamin) {
-                $query = Karyawan::query();
+            $cacheKey = 'mandor_data';
+            $mandorData = Cache::remember($cacheKey, 60, function() use ($jenisKelamin) {
+                $query = Mandor::query();
 
                 /* Filter */
                 if ($jenisKelamin) {
@@ -32,14 +32,19 @@ class KaryawanController extends Controller
                 return $query->get();
             });
     
-            return DataTables::of($karyawanData)
-                ->addColumn('user_name', function ($karyawan) {
-                    return $karyawan->user->name;
+            return DataTables::of($mandorData)
+                ->addColumn('user_name', function ($mandor) {
+                    return $mandor->user->name;
                 })
+                ->addColumn('status_mandor', function ($mandor){
+                    $badgeClass = ($mandor->status_mandor == 'Aktif') ? 'badge bg-success text-white px-2 py-1' : 'badge bg-warning text-white px-2 py-1';
+                    return '<span class="' . $badgeClass . '">' . $mandor->status_mandor . '</span>';
+                })
+                ->rawColumns(['status_mandor'])
                 ->make(true);
         }
     
-        return view('admin.list-karyawan-tamu');
+        return view('admin.list-mandor');
     }
 
     /**
