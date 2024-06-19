@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="nama_supir" class="form-label">Nama Supir</label>
-                                    <input type="text" id="nama_supir" name="nama_supir" class="form-control @error('nama_supir') is-invalid @enderror" value="{{ isset($supir) ? $supir->nama_supir : '' }}" >
+                                    <input type="text" id="nama_supir" name="nama_supir" class="form-control @error('nama_supir') is-invalid @enderror" value="{{ old('nama_supir', isset($supir) ? $supir->nama_supir : '') }}" >
                                     @error('nama_supir')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -47,7 +47,7 @@
                             <div class="row g-3">
                                 <div class="mb-3 col-md-4">
                                     <label for="nomor_telp" class="form-label">Nomor Telepon</label>
-                                    <input type="number" id="nomor_telp" name="nomor_telp" class="form-control @error('nomor_telp') is-invalid @enderror" value="{{ isset($supir) ? $supir->nomor_telp : '' }}" >
+                                    <input type="number" id="nomor_telp" name="nomor_telp" class="form-control @error('nomor_telp') is-invalid @enderror" value="{{ old('nomor_telp', isset($supir) ? $supir->nomor_telp : '') }}" >
                                     @error('nomor_telp')
                                         <div class="invalid-feedback">
                                             {{ $message }}

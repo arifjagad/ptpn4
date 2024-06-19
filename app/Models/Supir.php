@@ -23,7 +23,7 @@ class Supir extends Model
     ];
 
     protected $attributes = [
-        'status_perjalanan' => 'Tidak Beroperasi', 
+        'status_perjalanan' => 'Tersedia', 
     ];
 
     // public function user()

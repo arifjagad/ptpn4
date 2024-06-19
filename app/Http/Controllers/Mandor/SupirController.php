@@ -52,7 +52,7 @@ class SupirController extends Controller
                     return '<span class="' . $badgeClass . '">' . $supir->status_supir . '</span>';
                 })
                 ->addColumn('status_perjalanan', function ($supir) {
-                    $badgeClass = ($supir->status_perjalanan == 'Tidak Beroperasi') ? 'badge bg-success text-white px-2 py-1' : 'badge bg-warning text-white px-2 py-1';
+                    $badgeClass = ($supir->status_perjalanan == 'Tersedia') ? 'badge bg-success text-white px-2 py-1' : 'badge bg-warning text-white px-2 py-1';
                     return '<span class="' . $badgeClass . '">' . $supir->status_perjalanan . '</span>';
                 })
                 /* Action */

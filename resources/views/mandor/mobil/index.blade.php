@@ -1,7 +1,7 @@
-@extends('mandor.layouts.vertical', ['page_title' => 'Daftar Supir'])
+@extends('mandor.layouts.vertical', ['page_title' => 'Daftar Mobil'])
 
 @section('css')
-    @vite([
+    @vite([ 
         'node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css',
         'node_modules/select2/dist/css/select2.min.css',
     ])
@@ -15,43 +15,28 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">Manajemen Supir</h4>
+                    <h4 class="page-title">Manajemen Mobil</h4>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Daftar Supir</h4>
+                        <h4 class="header-title">Daftar Mobil</h4>
                         <p class="text-muted fs-14">
-                            Tabel ini menampilkan daftar supir yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
+                            Tabel ini menampilkan daftar mobil yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
-                        {{-- Button tambah supir --}}
+                        {{-- Button tambah mobil --}}
                         <div class="d-flex justify-content-end mb-2">
-                            <a href="{{ route('supir.form') }}" type="button" class="btn btn-success">
+                            <a href="{{ route('mobil.form') }}" type="button" class="btn btn-success">
                                 <i class="ri-add-circle-line"></i>
-                                <span>Tambah Supir</span>
+                                <span>Tambah Mobil</span>
                             </a>
                         </div>
                         {{-- Filter --}}
                         <div class="d-flex justify-content-end gap-2 mb-2">
                             <div class="w-25">
-                                <select id="filter-jenis-kelamin" class="form-control select2" data-toggle="select2">
-                                    <option value="">Pilih Jenis Kelamin</option>
-                                    <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                </select>
-                            </div>
-                            <div class="w-25">
-                                <select id="filter-status-supir" class="form-control select2" data-toggle="select2">
-                                    <option value="">Pilih Status Supir</option>
-                                    @foreach ($statusSupirList as $statusSupir)
-                                        <option value="{{ $statusSupir }}">{{ $statusSupir }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="w-25">
-                                <select id="filter-status-perjalanan" class="form-control select2" data-toggle="select2">
-                                    <option value="">Pilih Status Perjalanan</option>
-                                    @foreach ($statusPerjalananList as $statusPerjalanan)
-                                        <option value="{{ $statusPerjalanan }}">{{ $statusPerjalanan }}</option>
+                                <select id="filter-status-pemakaian" class="form-control select2" data-toggle="select2">
+                                    <option value="">Pilih Status Pemakaian</option>
+                                    @foreach ($statusPemakaianList as $statusPemakaian)
+                                        <option value="{{ $statusPemakaian }}">{{ $statusPemakaian }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -61,15 +46,15 @@
                             </div>
                         </div>
                         {{-- List data table --}}
-                        <table id="datatable-supir" class="table table-striped w-100 nowrap">
+                        <table id="datatable-mobil" class="table table-striped w-100 nowrap">
                             <thead>
                                 <tr>
-                                    <th>Nama Supir</th>
+                                    <th>Nama Mobil</th>
                                     <th>Nama Mandor</th>
-                                    <th>Nomor Telp</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Status Supir</th>
-                                    <th>Status Perjalanan</th>
+                                    <th>Nopol</th>
+                                    <th>Status Pemakaian</th>
+                                    <th>Terakhir Beroperasi</th>
+                                    <th>KM Awal</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -89,7 +74,7 @@
     {{-- JS tampilkan data ke table --}}
     <script type="text/javascript">
         $(document).ready(function() {
-            var table = $('#datatable-supir').DataTable({
+            var table = $('#datatable-mobil').DataTable({
                 processing: true,
                 serverSide: true,
                 scrollY: true,
@@ -100,19 +85,17 @@
                     type: 'GET',
                     /* Menjalankan filter */
                     data: function(d) {
-                        d.jenis_kelamin = $('#filter-jenis-kelamin').val();
-                        d.status_supir = $('#filter-status-supir').val();
-                        d.status_perjalanan = $('#filter-status-perjalanan').val();
+                        d.status_pemakaian = $('#filter-status-pemakaian').val();
                     },
                 },
                 /* Menampilkan kolom */
                 columns: [
-                    {data: 'nama_supir', name: 'nama_supir'},
+                    {data: 'nama_mobil', name: 'nama_mobil'},
                     {data: 'nama_mandor', name: 'nama_mandor'},
-                    {data: 'nomor_telp', name: 'nomor_telp'},
-                    {data: 'jenis_kelamin', name: 'jenis_kelamin'},
-                    {data: 'status_supir', name: 'status_supir'},
-                    {data: 'status_perjalanan', name: 'status_perjalanan'},
+                    {data: 'nopol', name: 'nopol'},
+                    {data: 'status_pemakaian', name: 'status_pemakaian'},
+                    {data: 'tanggal_terakhir_beroperasi', name: 'tanggal_terakhir_beroperasi'},
+                    {data: 'jumlah_km_awal', name: 'jumlah_km_awal'},
                     {data: 'action', name: 'action', orderable: false, searchable: false} 
                 ],
             });
