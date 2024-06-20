@@ -61,7 +61,7 @@ class KegiatanController extends Controller
                             ->first();
                         return $karyawan;
                     } else {
-                        $karyawan = $kegiatan->mandor->user->name;
+                        $karyawan = $kegiatan->karyawan->user->name;
                         return $karyawan;
                     }
                 })
@@ -96,6 +96,7 @@ class KegiatanController extends Controller
                     $btn = '';
                     /* Kondisi button */
                     if ($row->status_kegiatan === 'Sedang Diproses') {
+                        $btn .= '<button type="button" class="btn btn-success btn-sm me-1 btn-finished" data-id="'. $row->id .'" data-bs-toggle="modal" data-bs-target="#finished">Finished</button>';
                         $btn .= '<button type="button" class="btn btn-info btn-sm me-1 btn-view" data-id="'. $row->id .'" data-bs-toggle="modal" data-bs-target="#detail">View</button>';
                         $btn .= '<a href="'. $editUrl .'" class="btn btn-primary btn-sm me-1">Edit</a>';
                         $btn .= '<a href="'. $deleteUrl .'" class="btn btn-danger btn-sm" data-confirm-delete="true">Delete</a>';
@@ -154,12 +155,17 @@ class KegiatanController extends Controller
             'mobil_id' => 'required',
             'agenda' => 'required',
             'tujuan' => 'required',
-            'tanggal_kegiatan' => 'required|date',
+            'tanggal_kegiatan' => [
+                'required',
+                'date',
+                'after_or_equal:today',
+                'before:30 days'
+            ],
         ]);
 
         if ($validator->fails()) {
             Log::error('KegiatanController store, validation error:', $validator->errors()->all());
-            Alert::error('Gagal!', 'Gagal menambahkan data mobil');
+            Alert::error('Gagal!', 'Gagal menambahkan data kegiatan');
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -190,6 +196,15 @@ class KegiatanController extends Controller
             ]
         );
 
+        if($request->tipe_karyawan === 'tamu'){
+            Karyawan::where('id', $karyawanId)->update(
+                [
+                    'status_perjalanan' => 'Tidak Tersedia'
+                ]
+            );
+        }
+
+        
         Alert::success('Berhasil!', 'Berhasil menambahkan data kegiatan');
         return redirect()->route('kegiatan.index')->with('success', 'Kegiatan berhasil ditambahkan.');
     }
@@ -209,8 +224,10 @@ class KegiatanController extends Controller
         // Custom response
         $data = [
             'NIK' => $kegiatan->nik,
-            'Nama Karyawan' => $kegiatan->karyawan_id == 4 ? KaryawanPimpinan::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() :
-                ($kegiatan->karyawan_id == 5 ? KaryawanPelaksana::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() : $kegiatan->mandor->user->name),
+            'Nama Karyawan' => 
+                ($kegiatan->karyawan_id == 4 ? KaryawanPimpinan::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() :
+                ($kegiatan->karyawan_id == 5 ? KaryawanPelaksana::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() : 
+                $kegiatan->karyawan->user->name)),
             'Agenda' => $kegiatan->agenda,
             'Tujuan' => $kegiatan->tujuan,
             'Tanggal Kegiatan' => Carbon::parse($kegiatan->tanggal_kegiatan)->translatedFormat('d F Y'),
@@ -222,6 +239,27 @@ class KegiatanController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+    public function finished(Request $request, string $id)
+    {
+        $kegiatan = Kegiatan::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'jumlah_km_akhir' => 'required|numeric|min:'.$kegiatan->jumlah_km_awal, // Validasi input dengan minimal berdasarkan data kegiatan awal
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Gagal!', 'Gagal menyelesaikan kegiatan');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $kegiatan->jumlah_km_akhir = $request->jumlah_km_akhir;
+        $kegiatan->status_kegiatan = 'Selesai'; 
+        $kegiatan->save();
+        
+        Alert::success('Berhasil!', 'Berhasil menyelesaikan kegiatan');
+        return redirect()->route('kegiatan.index', compact('kegiatan'))->with('success', 'Kegiatan berhasil diselesaikan.');
     }
 
     /**
@@ -276,6 +314,14 @@ class KegiatanController extends Controller
             ]
         );
 
+        if($kegiatan->karyawan_id != 4 || $kegiatan->karyawan_id != 5){
+            Karyawan::where('id', $kegiatan->karyawan_id)->update(
+                [
+                    'status_perjalanan' => 'Tersedia'
+                ]
+            );
+        }
+
         try{
             Alert::success('Berhasil!', 'Berhasil menghapus data kegiatan');
             return redirect()->route('kegiatan.index')->with('success', 'Kegiatan berhasil dihapus.');
@@ -293,7 +339,6 @@ class KegiatanController extends Controller
 
         return view('mandor.kegiatan.form', compact('kegiatan', 'supirList', 'mobilList'));
     }
-
 
     public function getKaryawanByType($type)
     {

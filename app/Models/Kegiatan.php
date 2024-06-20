@@ -26,23 +26,23 @@ class Kegiatan extends Model
         'status_kegiatan',
     ];
 
-    protected $casts = [
-        'tujuan' => 'array',
-    ];
+    // protected $casts = [
+    //     'tujuan' => 'array',
+    // ];
 
-    public function setTujuanAttribute($value)
-    {
-        $this->attributes['tujuan'] = json_encode(array_map('trim', explode(',', $value)));
-    }
+    // public function setTujuanAttribute($value)
+    // {
+    //     $this->attributes['tujuan'] = json_encode(array_map('trim', explode(',', $value)));
+    // }
 
     public function getTujuanAttribute($value)
     {
         return json_decode($value, true);
     }
 
-    public function karyawan(): HasOne
+    public function karyawan()
     {
-        return $this->hasOne(Karyawan::class);
+        return $this->belongsTo(Karyawan::class);
     }
 
     public function Karyawanpelaksana()

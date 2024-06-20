@@ -82,6 +82,15 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label" for="tujuan">Tujuan</label>
+                                    <textarea class="form-control @error('tujuan') is-invalid @enderror" id="tujuan" name="tujuan" placeholder="Tujuan" style="height: 60px">{{ old('tujuan', isset($kegiatan) ? $kegiatan->tujuan : '') }}</textarea>
+                                    @error('tujuan')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                {{-- <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="tujuan">Tujuan</label>
                                     @php
                                         $tujuan = old('tujuan', isset($kegiatan) ? $kegiatan->tujuan : []);
                                         $tujuanString = implode(', ', $tujuan);
@@ -92,7 +101,7 @@
                                             {{ $message }}
                                         </div>
                                     @enderror
-                                </div>
+                                </div> --}}
                             </div>
                             @if(!isset($kegiatan))
                                 <div class="row g-3">
