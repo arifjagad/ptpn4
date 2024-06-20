@@ -29,12 +29,7 @@ class PertanyaanController extends Controller
             /* Menampilkan data yang ada ke datatables, dan menambahkan kolom */
             return DataTables::of($query)
                 ->addColumn('pertanyaan', function ($pertanyaan) {
-                    $data = json_decode($pertanyaan->pertanyaan);
-                    return $data->pertanyaan;
-                })
-                ->addColumn('jawaban', function ($pertanyaan) {
-                    $data = json_decode($pertanyaan->pertanyaan);
-                    return implode(', ', $data->jawaban);
+                    return 'Pertanyaan Kuesioner';
                 })
                 /* Action */
                 ->addColumn('action', function($row) {
@@ -63,28 +58,28 @@ class PertanyaanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
-        //
-        /* Validasi */
-        $validator = Validator::make($request->all(), [
-            'pertanyaan' => 'required',
+        $validatedData = $request->validate([
+            'pertanyaan' => 'required|array',
+            'pertanyaan.*' => 'required|string'
         ]);
-    
-        if ($validator->fails()) {
-            Alert::error('Gagal!', 'Gagal menambahkan data pertanyaan');
-            return redirect()->back()->withErrors($validator)->withInput();
+
+        try {
+            $pertanyaanJson = json_encode($validatedData['pertanyaan']);
+
+            // Assuming you have a model named Pertanyaan
+            Pertanyaan::create([
+                'pertanyaan' => $pertanyaanJson
+            ]);
+
+            Alert::success('Berhasil!', 'Berhasil menambahkan data Pertanyaan');
+            return redirect()->route('admin.pertanyaan.index')->with('success', 'Pertanyaan berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            Alert::error('Gagal!', 'Gagal menambahkan data Pertanyaan');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menambahkan data Pertanyaan. Silakan coba lagi.')->withInput();
         }
-        
-        Pertanyaan::create([
-            'pertanyaan' => json_encode([
-                'pertanyaan' => $request->pertanyaan,
-                'jawaban' => ['Kurang Baik', 'Cukup', 'Baik', 'Sangat Baik']
-            ]),
-        ]);
-        
-        Alert::success('Berhasil!', 'Berhasil menambahkan data Pertanyaan');
-        return redirect()->route('admin.pertanyaan.index')->with('success', 'Pertanyaan berhasil ditambahkan.');
     }
 
     /**
@@ -111,25 +106,25 @@ class PertanyaanController extends Controller
         //
         $pertanyaan = Pertanyaan::findOrFail($id);
 
-        /* Validasi */
-        $validator = Validator::make($request->all(), [
-            'pertanyaan' => 'required',
-        ]);
-    
-        if ($validator->fails()) {
-            Alert::error('Gagal!', 'Gagal mengupdate data pertanyaan');
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        try {
+            /* Validasi */
+            $validatedData = $request->validate([
+                'pertanyaan' => 'required|array',
+                'pertanyaan.*' => 'required|string'
+            ]);
 
-        $pertanyaan->update([
-            'pertanyaan' => json_encode([
-                'pertanyaan' => $request->pertanyaan,
-                'jawaban' => ['Kurang Baik', 'Cukup', 'Baik', 'Sangat Baik']
-            ]),
-        ]);
-        
-        Alert::success('Berhasil!', 'Berhasil mengupdate data pertanyaan');
-        return redirect()->route('admin.pertanyaan.index')->with('success', 'Pertanyaan berhasil diupdate.');
+            $pertanyaanJson = json_encode($validatedData['pertanyaan']);
+
+            $pertanyaan->update([
+                'pertanyaan' => $pertanyaanJson
+            ]);
+
+            Alert::success('Berhasil!', 'Berhasil mengupdate data Pertanyaan');
+            return redirect()->route('admin.pertanyaan.index')->with('success', 'Pertanyaan berhasil diupdate.');
+        } catch (\Exception $e) {
+            Alert::error('Gagal!', 'Gagal mengupdate data Pertanyaan');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengupdate data Pertanyaan. Silakan coba lagi.')->withInput();
+        }
     }
 
     /**

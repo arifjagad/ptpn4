@@ -24,20 +24,17 @@
                             Tabel ini menampilkan daftar Pertanyaan yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Button tambah pertanyaan --}}
-                        <div class="d-flex justify-content-end mb-2">
+                        {{-- <div class="d-flex justify-content-end mb-2">
                             <a href="{{ route('pertanyaan.form') }}" type="button" class="btn btn-success">
                                 <i class="ri-add-circle-line"></i>
                                 <span>Tambah pertanyaan</span>
                             </a>
-                        </div>
-                        {{-- Filter --}}
-                        
+                        </div> --}}
                         {{-- List data table --}}
                         <table id="datatable-pertanyaan" class="table table-striped w-100 nowrap">
                             <thead>
                                 <tr>
                                     <th>Pertanyaan</th>
-                                    <th>Pilihan Jawaban</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -66,27 +63,12 @@
                 ajax: {
                     url: '{{ url()->current() }}',
                     type: 'GET',
-                    /* Menjalankan filter */
-                    data: function(d) {
-                        d.status_perjalanan = $('#filter-status-perjalanan').val();
-                    },
                 },
                 /* Menampilkan kolom */
                 columns: [
                     {data: 'pertanyaan', name: 'pertanyaan'},
-                    {data: 'jawaban', name: 'jawaban'},
                     {data: 'action', name: 'action', orderable: false, searchable: false} 
                 ],
-            });
-    
-            /* Trigger action filter */
-            $('#filter-button').on('click', function() {
-                table.ajax.reload();
-            });
-            /* Trigger action reset */
-            $('#reset-button').on('click', function() {
-                $('select').val('').trigger('change');
-                table.ajax.reload();
             });
         });
     </script>
