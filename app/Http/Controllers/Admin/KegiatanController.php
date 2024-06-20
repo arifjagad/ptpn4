@@ -20,13 +20,13 @@ class KegiatanController extends Controller
         //
         if ($request->ajax()) {
             /* Mengambil data */
-            $jenisKelamin = $request->get('jenis_kelamin');
+            $statusKegiatan = $request->get('status_kegiatan');
 
             $query = Kegiatan::query();
 
             /* Mengecek kondisi untuk filter */
-            if ($jenisKelamin) {
-                $query->where('jenis_kelamin', $jenisKelamin);
+            if ($statusKegiatan) {
+                $query->where('status_kegiatan', $statusKegiatan);
             }
 
             /* Menampilkan data yang ada ke datatables, dan menambahkan kolom */

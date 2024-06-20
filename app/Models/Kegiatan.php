@@ -26,14 +26,14 @@ class Kegiatan extends Model
         'status_kegiatan',
     ];
 
-    // protected $casts = [
-    //     'tujuan' => 'array',
-    // ];
+    protected $casts = [
+        'tujuan' => 'array',
+    ];
 
-    // public function setTujuanAttribute($value)
-    // {
-    //     $this->attributes['tujuan'] = json_encode(array_map('trim', explode(',', $value)));
-    // }
+    public function setTujuanAttribute($value)
+    {
+        $this->attributes['tujuan'] = json_encode(array_map('trim', explode(',', $value)));
+    }
 
     public function getTujuanAttribute($value)
     {

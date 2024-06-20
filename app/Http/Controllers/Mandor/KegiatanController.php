@@ -37,13 +37,13 @@ class KegiatanController extends Controller
         //
         if ($request->ajax()) {
             /* Mengambil data */
-            $jenisKelamin = $request->get('jenis_kelamin');
+            $statusKegiatan = $request->get('status_kegiatan');
 
             $query = Kegiatan::query();
 
             /* Mengecek kondisi untuk filter */
-            if ($jenisKelamin) {
-                $query->where('jenis_kelamin', $jenisKelamin);
+            if ($statusKegiatan) {
+                $query->where('status_kegiatan', $statusKegiatan);
             }
 
             /* Menampilkan data yang ada ke datatables, dan menambahkan kolom */
@@ -79,8 +79,7 @@ class KegiatanController extends Controller
                 })
                 ->addCOlumn('status_kegiatan', function ($kegiatan) {
                     $statuses = [
-                        'Menunggu Keberangkatan' => 'badge bg-warning text-white px-2 py-1',
-                        'Sedang Berjalan' => 'badge bg-info text-white px-2 py-1',
+                        'Sedang Diproses' => 'badge bg-info text-white px-2 py-1',
                         'Selesai' => 'badge bg-success text-white px-2 py-1',
                     ];
 
@@ -93,20 +92,12 @@ class KegiatanController extends Controller
                 ->addColumn('action', function($row) {
                     $editUrl = route('kegiatan.form', $row->id);
                     $deleteUrl = route('kegiatan.destroy', $row->id);
-                    $progressUrl = '#';
-                    $finishedUrl = '#';
                 
                     $btn = '';
-
                     /* Kondisi button */
-                    if ($row->status_kegiatan === 'Menunggu Keberangkatan') {
-                        $btn .= '<a href="'. $progressUrl .'" class="btn btn-success btn-sm me-1" data-confirm-delete="true">Process</a>';
+                    if ($row->status_kegiatan === 'Sedang Diproses') {
                         $btn .= '<button type="button" class="btn btn-info btn-sm me-1 btn-view" data-id="'. $row->id .'" data-bs-toggle="modal" data-bs-target="#detail">View</button>';
                         $btn .= '<a href="'. $editUrl .'" class="btn btn-primary btn-sm me-1">Edit</a>';
-                        $btn .= '<a href="'. $deleteUrl .'" class="btn btn-danger btn-sm" data-confirm-delete="true">Delete</a>';
-                    } elseif ($row->status_kegiatan === 'Sedang Berjalan') {
-                        $btn .= '<button type="button" class="btn btn-info btn-sm me-1 btn-view" data-id="'. $row->id .'" data-bs-toggle="modal" data-bs-target="#detail">View</button>';
-                        $btn .= '<a href="'. $finishedUrl .'" class="btn btn-success btn-sm me-1">Finished</a>';
                         $btn .= '<a href="'. $deleteUrl .'" class="btn btn-danger btn-sm" data-confirm-delete="true">Delete</a>';
                     } else {
                         $btn .= '<button type="button" class="btn btn-info btn-sm me-1 btn-view" data-id="'. $row->id .'" data-bs-toggle="modal" data-bs-target="#detail">View</button>';
@@ -179,11 +170,23 @@ class KegiatanController extends Controller
                 'supir_id' => $request->supir_id,
                 'mobil_id' => $request->mobil_id,
                 'agenda' => $request->agenda,
-                'tujuan' => $request->tujuan,
+                'tujuan' => json_encode(array_map('trim', explode(',', $request->tujuan))),
                 'tanggal_kegiatan' => $request->tanggal_kegiatan,
-                'status_kegiatan' => 'Menunggu Keberangkatan',
+                'status_kegiatan' => 'Sedang Diproses',
                 'jumlah_km_awal' => Mobil::find($request->mobil_id)->jumlah_km_awal,
                 'jumlah_km_akhir' => NULL,
+            ]
+        );
+
+        Mobil::where('id', $request->mobil_id)->update(
+            [
+                'status_pemakaian' => 'Tidak Tersedia'
+            ]
+        );
+
+        Supir::where('id', $request->supir_id)->update(
+            [
+                'status_perjalanan' => 'Tidak Tersedia'
             ]
         );
 
@@ -266,6 +269,18 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::find($id);
         $kegiatan->delete();
 
+        Mobil::where('id', $kegiatan->mobil_id)->update(
+            [
+                'status_pemakaian' => 'Tersedia'
+            ]
+        );
+
+        Supir::where('id', $kegiatan->supir_id)->update(
+            [
+                'status_perjalanan' => 'Tersedia'
+            ]
+        );
+
         try{
             Alert::success('Berhasil!', 'Berhasil menghapus data kegiatan');
             return redirect()->route('kegiatan.index')->with('success', 'Kegiatan berhasil dihapus.');
@@ -278,8 +293,8 @@ class KegiatanController extends Controller
     public function form(Kegiatan $kegiatan = null)
     {
         $mandorId = Auth::user()->id;
-        $supirList = Supir::select('nama_supir', 'id')->distinct()->pluck('nama_supir', 'id');
-        $mobilList = Mobil::select('nama_mobil', 'id')->distinct()->pluck('nama_mobil', 'id');
+        $supirList = Supir::where('status_perjalanan', 'Tersedia')->select('nama_supir', 'id')->distinct()->pluck('nama_supir', 'id');
+        $mobilList = Mobil::where('status_pemakaian', 'Tersedia')->select('nama_mobil', 'id')->distinct()->pluck('nama_mobil', 'id');
 
         return view('mandor.kegiatan.form', compact('kegiatan', 'supirList', 'mobilList'));
     }
