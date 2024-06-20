@@ -82,7 +82,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ url('admin/pertanyaan') }}" class="side-nav-link">
                     <i class="ri-survey-line"></i>
                     <span> Daftar Pertanyaan </span>
                 </a>

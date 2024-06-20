@@ -11,7 +11,7 @@
 
 <body>
     <!-- Pre-loader -->
-    <div id="preloader">
+    {{-- <div id="preloader">
         <div id="status">
             <div class="bouncing-loader">
                 <div></div>
@@ -19,13 +19,13 @@
                 <div></div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- End Preloader-->
 
     <div class="wrapper">
 
         @include('admin.layouts/topbar')
-
+        @include('sweetalert::alert')
         @include('admin.layouts/left-sidebar')
 
         <!-- ============================================================== -->
