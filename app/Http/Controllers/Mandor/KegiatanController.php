@@ -241,13 +241,8 @@ class KegiatanController extends Controller
         $kegiatan = Kegiatan::find($id);
 
         $validator = Validator::make($request->all(), [
-            'tipe_karyawan' => 'required',
-            'karyawan_detail' => 'required',
-            'supir_id' => 'required',
-            'mobil_id' => 'required',
             'agenda' => 'required',
             'tujuan' => 'required',
-            'tanggal_kegiatan' => 'required|date',
         ]);
 
         if ($validator->fails()) {
@@ -298,6 +293,7 @@ class KegiatanController extends Controller
 
         return view('mandor.kegiatan.form', compact('kegiatan', 'supirList', 'mobilList'));
     }
+
 
     public function getKaryawanByType($type)
     {
