@@ -6,6 +6,7 @@ use App\Http\Controllers\Mandor\SupirController;
 use App\Http\Controllers\Mandor\MobilController;
 use App\Http\Controllers\Mandor\KaryawanController;
 use App\Http\Controllers\Mandor\KegiatanController;
+use App\Http\Controllers\Mandor\KuesionerController;
 
 Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('mandor.dashboard');
@@ -42,5 +43,10 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], fu
     Route::get('/kegiatan/{id}', [KegiatanController::class, 'show'])->name('kegiatan.show');
     Route::put('/kegiatan/finished/{id}', [KegiatanController::class, 'finished'])->name('kegiatan.finished');
 
-
+    /* Route Kuesioner */
+    Route::get('/kuesioner', [KuesionerController::class, 'index'])->name('kuesioner.index');
+    Route::get('/kuesioner/form/{kuesioner?}', [KuesionerController::class, 'form'])->name('kuesioner.form');
+    Route::post('/kuesioner/store', [KuesionerController::class, 'store'])->name('kuesioner.store');
+    Route::put('/kuesioner/update/{kuesioner}', [KuesionerController::class, 'update'])->name('kuesioner.update');
+    Route::delete('/kuesioner/{id}', [KuesionerController::class, 'destroy'])->name('kuesioner.destroy');
 });

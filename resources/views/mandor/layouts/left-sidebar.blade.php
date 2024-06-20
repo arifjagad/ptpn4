@@ -61,7 +61,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
+                <a href="{{ url('mandor/kuesioner') }}" class="side-nav-link">
                     <i class="ri-booklet-line"></i>
                     <span> Data Kuesioner </span>
                 </a>
