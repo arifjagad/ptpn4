@@ -10,9 +10,9 @@ $(document).ready(function() {
             url: '/mandor/kuesioner/',
             type: 'GET',
             /* Menjalankan filter */
-            // data: function(d) {
-            //     d.status_kegiatan = $('#filter-status-kuesioner').val();
-            // },
+            data: function(d) {
+                d.status_kuesioner = $('#filter-status-kuesioner').val();
+            },
         },
         /* Menampilkan kolom */
         columns: [

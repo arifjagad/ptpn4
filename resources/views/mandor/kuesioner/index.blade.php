@@ -25,12 +25,12 @@
                             Tabel ini menampilkan daftar kuesioner yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Filter --}}
-                        {{-- <div class="d-flex justify-content-end gap-2 mb-2">
+                        <div class="d-flex justify-content-end gap-2 mb-2">
                             <div class="w-25">
-                                <select id="filter-status-kegiatan" class="form-control select2" data-toggle="select2">
-                                    <option value="">Pilih Status Kegiatan</option>
-                                    @foreach ($statuskegiatanList as $statusKegiatan)
-                                        <option value="{{ $statusKegiatan }}">{{ $statusKegiatan }}</option>
+                                <select id="filter-status-kuesioner" class="form-control select2" data-toggle="select2">
+                                    <option value="">Pilih Status Kuesioner</option>
+                                    @foreach ($statusKuesionerList as $statusKuesioner)
+                                        <option value="{{ $statusKuesioner }}">{{ $statusKuesioner }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -38,7 +38,7 @@
                                 <button id="filter-button" class="btn btn-primary">Filter</button>
                                 <button id="reset-button" class="btn btn-secondary">Reset</button>
                             </div>
-                        </div> --}}
+                        </div>
                         {{-- List data table --}}
                         <table id="datatable-kuesioner" class="table table-striped w-100 nowrap">
                             <thead>

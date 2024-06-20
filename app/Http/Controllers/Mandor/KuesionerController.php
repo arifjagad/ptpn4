@@ -81,7 +81,13 @@ class KuesionerController extends Controller
                 ->rawColumns(['status_kuesioner', 'action']) // Raw data
                 ->make(true);
         }
-        return view ('mandor.kuesioner.index');
+
+        /* Mengambil data untuk filter */
+        $statusKuesionerList = Kuesioner::select('status_kuesioner')
+            ->distinct()
+            ->pluck('status_kuesioner');
+
+        return view ('mandor.kuesioner.index', compact('statusKuesionerList'));
     }
 
     /**
