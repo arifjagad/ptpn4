@@ -40,5 +40,7 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], fu
 
     Route::get('/karyawan/{type}', [KegiatanController::class, 'getKaryawanByType'])->name('karyawan.byType');
     Route::get('/kegiatan/{id}', [KegiatanController::class, 'show'])->name('kegiatan.show');
+    Route::put('/kegiatan/finished/{id}', [KegiatanController::class, 'finished'])->name('kegiatan.finished');
+
 
 });

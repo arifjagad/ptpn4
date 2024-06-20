@@ -14,17 +14,17 @@ class Kuesioner extends Model
     protected $fillable = [
         'kegiatan_id',
         'pertanyaan_id',
-        'status',
+        'status_kuesioner',
         'jawaban',
     ];
 
     public function kegiatan()
     {
-        return $this->belongsTo(Kegiatan::class, 'kegiatan_id');
+        return $this->belongsTo(Kegiatan::class);
     }
 
     public function pertanyaan()
     {
-        return $this->belongsTo(Pertanyaan::class, 'pertanyaan_id');
+        return $this->belongsTo(Pertanyaan::class);
     }
 }

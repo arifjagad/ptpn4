@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Mandor::class);
     }
+
+    public function karyawan(): HasOne
+    {
+        return $this->hasOne(Karyawan::class);
+    }
 }

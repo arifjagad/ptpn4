@@ -7,6 +7,7 @@
     @include('layouts.shared/head-css', ['mode' => $mode ?? '', 'demo' => $demo ?? ''])
 
     @vite(['resources/js/head.js'])
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>

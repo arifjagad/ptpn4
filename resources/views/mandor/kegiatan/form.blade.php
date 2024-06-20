@@ -29,45 +29,47 @@
                             @if(isset($kegiatan))
                                 @method('PUT')
                             @endif
-                            <div class="row g-3">
-                                <div class="mb-3 col-md-4">
-                                    <label for="tipe_karyawan" class="form-label">Tipe Karyawan</label>
-                                    <select id="tipe_karyawan" name="tipe_karyawan" class="form-control select2 @error('tipe_karyawan') is-invalid @enderror" data-toggle="select2">
-                                        <option value="">Pilih Tipe Karyawan</option>
-                                        <option value="pimpinan" {{ old('tipe_karyawan', isset($kegiatan) && $kegiatan->tipe_karyawan == 'pimpinan' ? 'selected' : '') }}>Karyawan Pimpinan</option>
-                                        <option value="pelaksana" {{ old('tipe_karyawan', isset($kegiatan) && $kegiatan->tipe_karyawan == 'pelaksana' ? 'selected' : '') }}>Karyawan Pelaksana</option>
-                                        <option value="tamu" {{ old('tipe_karyawan', isset($kegiatan) && $kegiatan->tipe_karyawan == 'tamu' ? 'selected' : '') }}>Karyawan Tamu</option>
-                                    </select>
-                                    @error('tipe_karyawan')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="karyawan_detail" class="form-label">Nama Karyawan</label>
-                                    <select id="karyawan_detail" name="karyawan_detail" class="form-control select2 @error('karyawan_detail') is-invalid @enderror" data-toggle="select2">
-                                        <!-- Options will be populated by AJAX -->
-                                        <option value="">Pilih Karyawan</option>
-                                    </select>
-                                    @error('karyawan_detail')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <div class="position-relative" id="tanggal_kegiatan">
-                                        <label class="form-label">Tanggal Kegiatan</label>
-                                        <input type="text" id="tanggal_kegiatan" name="tanggal_kegiatan" class="form-control @error('tanggal_kegiatan') is-invalid @enderror" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="d-M-yyyy" data-date-container="#tanggal_kegiatan" value="{{ old('tanggal_kegiatan', isset($kegiatan) ? \Carbon\Carbon::parse($kegiatan->tanggal_kegiatan)->format('d-M-Y') : '') }}">
-                                        @error('tanggal_kegiatan')
+                            @if(!isset($kegiatan))
+                                <div class="row g-3">
+                                    <div class="mb-3 col-md-4">
+                                        <label for="tipe_karyawan" class="form-label">Tipe Karyawan</label>
+                                        <select id="tipe_karyawan" name="tipe_karyawan" class="form-control select2 @error('tipe_karyawan') is-invalid @enderror" data-toggle="select2">
+                                            <option value="">Pilih Tipe Karyawan</option>
+                                            <option value="pimpinan" {{ old('tipe_karyawan', isset($kegiatan) && $kegiatan->tipe_karyawan == 'pimpinan' ? 'selected' : '') }}>Karyawan Pimpinan</option>
+                                            <option value="pelaksana" {{ old('tipe_karyawan', isset($kegiatan) && $kegiatan->tipe_karyawan == 'pelaksana' ? 'selected' : '') }}>Karyawan Pelaksana</option>
+                                            <option value="tamu" {{ old('tipe_karyawan', isset($kegiatan) && $kegiatan->tipe_karyawan == 'tamu' ? 'selected' : '') }}>Karyawan Tamu</option>
+                                        </select>
+                                        @error('tipe_karyawan')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label for="karyawan_detail" class="form-label">Nama Karyawan</label>
+                                        <select id="karyawan_detail" name="karyawan_detail" class="form-control select2 @error('karyawan_detail') is-invalid @enderror" data-toggle="select2">
+                                            <!-- Options will be populated by AJAX -->
+                                            <option value="">Pilih Karyawan</option>
+                                        </select>
+                                        @error('karyawan_detail')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <div class="position-relative" id="tanggal_kegiatan">
+                                            <label class="form-label">Tanggal Kegiatan</label>
+                                            <input type="text" id="tanggal_kegiatan" name="tanggal_kegiatan" class="form-control @error('tanggal_kegiatan') is-invalid @enderror" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="d-M-yyyy" data-date-container="#tanggal_kegiatan" value="{{ old('tanggal_kegiatan', isset($kegiatan) ? \Carbon\Carbon::parse($kegiatan->tanggal_kegiatan)->format('d-M-Y') : '') }}">
+                                            @error('tanggal_kegiatan')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                             <div class="row g-2">
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label" for="agenda">Agenda</label>
@@ -87,41 +89,56 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="row g-3">
-                                <div class="mb-3 col-md-4">
-                                    <label class="form-label">Nama Mandor</label>
-                                    <input type="text" id="mandor_nama" name="mandor_nama" class="form-control" value="{{ auth()->user()->name }}" disabled>
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="supir_id" class="form-label">Nama Supir</label>
-                                    <select id="supir_id" name="supir_id" class="form-control select2 @error('supir_id') is-invalid @enderror" data-toggle="select2">
-                                        <option value="">Pilih Supir</option>
-                                        @foreach ($supirList as $supirId => $supirNama)
-                                            <option value="{{ $supirId }}" {{ old('supir_id', isset($kegiatan) ? $kegiatan->supir_id : '') == $supirId ? 'selected' : '' }}>{{ $supirNama }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('supir_id')
+                                {{-- <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="tujuan">Tujuan</label>
+                                    @php
+                                        $tujuan = old('tujuan', isset($kegiatan) ? $kegiatan->tujuan : []);
+                                        $tujuanString = implode(', ', $tujuan);
+                                    @endphp
+                                    <textarea class="form-control @error('tujuan') is-invalid @enderror" id="tujuan" name="tujuan" placeholder="Tujuan" style="height: 60px">{{ $tujuanString }}</textarea>
+                                    @error('tujuan')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
                                     @enderror
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label for="mobil_id" class="form-label">Nama Mobil</label>
-                                    <select id="mobil_id" name="mobil_id" class="form-control select2 @error('mobil_id') is-invalid @enderror" data-toggle="select2">
-                                        <option value="">Pilih Mobil</option>
-                                        @foreach ($mobilList as $mobilId => $mobilNama)
-                                            <option value="{{ $mobilId }}" {{ old('mobil_id', isset($kegiatan) ? $kegiatan->mobil_id : '') == $mobilId ? 'selected' : '' }}>{{ $mobilNama }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('mobil_id')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
+                                </div> --}}
                             </div>
+                            @if(!isset($kegiatan))
+                                <div class="row g-3">
+                                    <div class="mb-3 col-md-4">
+                                        <label class="form-label">Nama Mandor</label>
+                                        <input type="text" id="mandor_nama" name="mandor_nama" class="form-control" value="{{ auth()->user()->name }}" disabled>
+                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label for="supir_id" class="form-label">Nama Supir</label>
+                                        <select id="supir_id" name="supir_id" class="form-control select2 @error('supir_id') is-invalid @enderror" data-toggle="select2">
+                                            <option value="">Pilih Supir</option>
+                                            @foreach ($supirList as $supirId => $supirNama)
+                                                <option value="{{ $supirId }}" {{ old('supir_id', isset($kegiatan) ? $kegiatan->supir_id : '') == $supirId ? 'selected' : '' }}>{{ $supirNama }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('supir_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label for="mobil_id" class="form-label">Nama Mobil</label>
+                                        <select id="mobil_id" name="mobil_id" class="form-control select2 @error('mobil_id') is-invalid @enderror" data-toggle="select2">
+                                            <option value="">Pilih Mobil</option>
+                                            @foreach ($mobilList as $mobilId => $mobilNama)
+                                                <option value="{{ $mobilId }}" {{ old('mobil_id', isset($kegiatan) ? $kegiatan->mobil_id : '') == $mobilId ? 'selected' : '' }}>{{ $mobilNama }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('mobil_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn btn-primary">{{ isset($kegiatan) ? 'Update' : 'Tambah' }}</button>
                             </div>
