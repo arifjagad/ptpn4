@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Karyawan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -22,7 +22,17 @@ class KegiatanController extends Controller
             /* Mengambil data */
             $statusKegiatan = $request->get('status_kegiatan');
 
-            $query = Kegiatan::query();
+            if(auth()->user()->id === 6){
+                $nik = session()->get('nik');
+                $query = Kegiatan::where('nik', $nik);
+            } elseif (auth()->user()->id === 7){
+                $nik = session()->get('nik');
+                $query = Kegiatan::where('nik', $nik);
+            } else {
+                $userId = auth()->user()->karyawan->id;
+                $query = Kegiatan::where('karyawan_id', $userId);
+            }
+            // $query = Kegiatan::query();
 
             /* Mengecek kondisi untuk filter */
             if ($statusKegiatan) {
@@ -44,7 +54,7 @@ class KegiatanController extends Controller
                             ->first();
                         return $karyawan;
                     } else {
-                        $karyawan = $kegiatan->mandor->user->name;
+                        $karyawan = $kegiatan->karyawan->user->name;
                         return $karyawan;
                     }
                 })
@@ -86,7 +96,7 @@ class KegiatanController extends Controller
             ->distinct()
             ->pluck('status_kegiatan');
         
-        return view ('admin.list-kegiatan', compact('statuskegiatanList'));
+        return view ('karyawan.kegiatan.index', compact('statuskegiatanList'));
     }
 
     /**
@@ -121,7 +131,7 @@ class KegiatanController extends Controller
         $data = [
             'NIK' => $kegiatan->nik,
             'Nama Karyawan' => $kegiatan->karyawan_id == 4 ? KaryawanPimpinan::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() :
-                ($kegiatan->karyawan_id == 5 ? KaryawanPelaksana::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() : $kegiatan->mandor->user->name),
+                ($kegiatan->karyawan_id == 5 ? KaryawanPelaksana::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() : $kegiatan->karyawan->user->name),
             'Agenda' => $kegiatan->agenda,
             'Tujuan' => $kegiatan->tujuan,
             'Tanggal Kegiatan' => Carbon::parse($kegiatan->tanggal_kegiatan)->translatedFormat('d F Y'),
