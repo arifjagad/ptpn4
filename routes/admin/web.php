@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\KegiatanController;
 use App\Http\Controllers\Admin\MandorController;
 use App\Http\Controllers\Admin\SupirController;
 use App\Http\Controllers\Admin\MobilController;
+use App\Http\Controllers\Admin\PertanyaanController;
 
 Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -24,4 +25,11 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:admin']], fun
     Route::get('/list-supir', [SupirController::class, 'index'])->name('admin.list-supir');
 
     Route::get('/list-mobil', [MobilController::class, 'index'])->name('admin.list-mobil');
+
+    Route::get('/pertanyaan', [PertanyaanController::class, 'index'])->name('admin.pertanyaan.index');
+    Route::get('/pertanyaan/form/{pertanyaan?}', [PertanyaanController::class, 'form'])->name('pertanyaan.form');
+    Route::post('/pertanyaan/store', [PertanyaanController::class, 'store'])->name('pertanyaan.store');
+    Route::put('/pertanyaan/update/{pertanyaan}', [PertanyaanController::class, 'update'])->name('pertanyaan.update');
+    Route::delete('/pertanyaan/{id}', [PertanyaanController::class, 'destroy'])->name('pertanyaan.destroy');
+
 });
