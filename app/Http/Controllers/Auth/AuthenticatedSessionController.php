@@ -43,8 +43,8 @@ class AuthenticatedSessionController extends Controller
             Auth::loginUsingId($user);
             $nik = Session::get('nik');
             $user = KaryawanPimpinan::where('NIK', $nik)->first();
-            //dd($user);
-            return redirect('/dashboard');
+            //dd($nik);
+            return redirect('/karyawan/dashboard');
         }
 
         if (Session::get('isSecondaryLoginKaryawanPelaksana')) {
@@ -52,8 +52,8 @@ class AuthenticatedSessionController extends Controller
             Auth::loginUsingId($user);
             $nik = Session::get('nik');
             $user = KaryawanPelaksana::where('NIK', $nik)->first();
-            //dd($user);
-            return redirect('/dashboard');
+            //dd($nik);
+            return redirect('/karyawan/dashboard');
         }
 
         return redirect()->intended(RouteServiceProvider::HOME);
