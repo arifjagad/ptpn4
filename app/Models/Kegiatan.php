@@ -35,11 +35,6 @@ class Kegiatan extends Model
     //     $this->attributes['tujuan'] = json_encode(array_map('trim', explode(',', $value)));
     // }
 
-    public function getTujuanAttribute($value)
-    {
-        return json_decode($value, true);
-    }
-
     public function karyawan()
     {
         return $this->belongsTo(Karyawan::class);

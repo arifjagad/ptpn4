@@ -10,6 +10,8 @@ use App\Models\Karyawan;
 use App\Models\KaryawanPimpinan;
 use App\Models\KaryawanPelaksana;
 use App\Models\Mobil;
+use App\Models\Kuesioner;
+use App\Models\Pertanyaan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -258,6 +260,15 @@ class KegiatanController extends Controller
         $kegiatan->status_kegiatan = 'Selesai'; 
         $kegiatan->save();
         
+        $pertanyaanList = Pertanyaan::all();
+        $pertanyaanIdList = $pertanyaanList->pluck('id')->toArray();
+        Kuesioner::create([
+            'kegiatan_id' => $kegiatan->id,
+            'pertanyaan_id' => 11,
+            'status_kuesioner' => 'Belum diisi',
+            'jawaban' => null,
+        ]);
+
         Alert::success('Berhasil!', 'Berhasil menyelesaikan kegiatan');
         return redirect()->route('kegiatan.index', compact('kegiatan'))->with('success', 'Kegiatan berhasil diselesaikan.');
     }
