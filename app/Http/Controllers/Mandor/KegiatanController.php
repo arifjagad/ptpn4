@@ -260,13 +260,24 @@ class KegiatanController extends Controller
         $kegiatan->status_kegiatan = 'Selesai'; 
         $kegiatan->save();
         
-        $pertanyaanList = Pertanyaan::all();
-        $pertanyaanIdList = $pertanyaanList->pluck('id')->toArray();
         Kuesioner::create([
             'kegiatan_id' => $kegiatan->id,
-            'pertanyaan_id' => 11,
-            'status_kuesioner' => 'Belum diisi',
+            'pertanyaan_id' => 23, //data statis
+            'status_kuesioner' => 'Belum Selesai',
             'jawaban' => null,
+        ]);
+
+        $kegiatan->mobil->update([
+            'status_pemakaian' => 'Tersedia',
+            'jumlah_km_awal' => $request->jumlah_km_akhir,
+        ]);
+
+        $kegiatan->supir->update([
+            'status_perjalanan' => 'Tersedia',
+        ]);
+
+        $kegiatan->karyawan->update([
+            'status_perjalanan' => 'Tersedia',
         ]);
 
         Alert::success('Berhasil!', 'Berhasil menyelesaikan kegiatan');
