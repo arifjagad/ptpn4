@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class KuesionerController extends Controller
 {
@@ -77,10 +78,12 @@ class KuesionerController extends Controller
                 })
                 ->addColumn('action', function($row) {
                     $editUrl = route('kuesioner.jawaban', $row->id);
+                    $pdfUrl = route('kuesioner.downloadPdf', $row->id);
+
                     $btn = '';
                     /* Kondisi button */
                     if ($row->status_kuesioner === 'Selesai') {
-                        $btn .= '<button type="button" class="btn btn-info btn-sm me-1 btn-view" data-id="'. $row->id .'" data-bs-toggle="modal" data-bs-target="#detail">Download PDF</button>';
+                        $btn .= '<a href="'. $pdfUrl .'" class="btn btn-info btn-sm me-1">Download PDF</a>';
                     } else {
                         $btn .= '<a href="'. $editUrl .'" class="btn btn-primary btn-sm me-1">Isi Kuesioner</a>';
                     }
@@ -147,10 +150,8 @@ class KuesionerController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
     
-        // Ambil kuesioner berdasarkan id
         $kuesioner = Kuesioner::findOrFail($id);
     
-        // Ambil data pertanyaan dan jawaban dari request
         $pertanyaan = $request->input('pertanyaan');
         $jawaban = $request->input('jawaban');
     
@@ -162,7 +163,6 @@ class KuesionerController extends Controller
             $dataJawaban[$question] = $jawaban[$index];
         }
     
-        // Simpan data dalam format JSON ke kolom jawaban
         $kuesioner->jawaban = json_encode($dataJawaban);
         $kuesioner->status_kuesioner = 'Selesai';
         $kuesioner->save();
@@ -183,5 +183,28 @@ class KuesionerController extends Controller
         $kuesioner = Kuesioner::findOrFail($id);
         $pertanyaan = json_decode($kuesioner->pertanyaan->pertanyaan, true);
         return view('karyawan.kuesioner.jawaban', compact('kuesioner', 'pertanyaan'));
+    }
+
+    public function downloadPdf($id) {
+        $kuesioner = Kuesioner::findOrFail($id);
+        $jawaban = json_decode($kuesioner->jawaban, true);
+    
+        // Pastikan untuk memuat semua relasi yang diperlukan
+        $kuesioner->load('kegiatan.supir', 'kegiatan.mobil');
+    
+
+        $karyawanId = $kuesioner->kegiatan->karyawan_id;
+        $nik = $kuesioner->kegiatan->nik;
+
+        if ($karyawanId == 4) {
+            $namaKaryawan = KaryawanPimpinan::where('NIK', $nik)->value('NAMA') ?? 'Tidak ditemukan';
+        } elseif ($karyawanId == 5) {
+            $namaKaryawan = KaryawanPelaksana::where('NIK', $nik)->value('NAMA') ?? 'Tidak ditemukan';
+        } else {
+            $namaKaryawan = $kuesioner->kegiatan->karyawan->user->name;
+        }
+    
+        $pdf = Pdf::loadView('layouts.shared.pdf', compact('kuesioner', 'jawaban', 'namaKaryawan'));
+        return $pdf->download('kuesioner_' . $kuesioner->id . '.pdf');
     }
 }

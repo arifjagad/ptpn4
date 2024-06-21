@@ -14,4 +14,5 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:karyawan,kary
     Route::get('/kuesioner', [KuesionerController::class, 'index'])->name('karyawan.kuesioner');
     Route::get('/kuesioner/jawaban/{id}', [KuesionerController::class, 'jawaban'])->name('kuesioner.jawaban');
     Route::put('/kuesioner/jawaban/{id}', [KuesionerController::class, 'update'])->name('kuesioner.update');
+    Route::get('/kuesioner/downloadPdf/{id}', [KuesionerController::class, 'downloadPdf'])->name('kuesioner.downloadPdf');
 });
