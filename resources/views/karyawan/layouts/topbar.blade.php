@@ -93,11 +93,6 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated profile-dropdown">
                     <!-- item-->
-                    <div class=" dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">Welcome !</h6>
-                    </div>
-
-                    <!-- item-->
                     @if(!in_array(auth()->user()->id, [6, 7]))
                     <a href="#" class="dropdown-item">
                         <i class="ri-account-circle-line fs-18 align-middle me-1"></i>
@@ -108,7 +103,7 @@
                     <!-- item-->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <a onclick="event.preventDefault(); this.closest('form').submit();" class="dropdown-item">
+                        <a href="#" class="dropdown-item" onmouseover="this.style.cursor='pointer'" onclick="event.preventDefault(); this.closest('form').submit();">
                             <i class="ri-logout-box-line fs-18 align-middle me-1"></i>
                             <span>Logout</span>
                         </a>
