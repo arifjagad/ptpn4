@@ -1,6 +1,6 @@
 /* Menampilkan data ke table */
 $(document).ready(function() {
-    var table = $('#datatable-kuesioner').DataTable({
+    var table = $('#datatable-mandor-kuesioner').DataTable({
         processing: true,
         serverSide: true,
         ordering: false,
