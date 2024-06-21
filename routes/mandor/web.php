@@ -8,7 +8,7 @@ use App\Http\Controllers\Mandor\KaryawanController;
 use App\Http\Controllers\Mandor\KegiatanController;
 use App\Http\Controllers\Mandor\KuesionerController;
 
-Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], function () {
+Route::group(['prefix' => 'mandor', 'middleware' => ['auth', 'user_type:mandor']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('mandor.dashboard');
 
     /* Route Supir */
@@ -45,8 +45,5 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], fu
 
     /* Route Kuesioner */
     Route::get('/kuesioner', [KuesionerController::class, 'index'])->name('kuesioner.index');
-    Route::get('/kuesioner/form/{kuesioner?}', [KuesionerController::class, 'form'])->name('kuesioner.form');
-    Route::post('/kuesioner/store', [KuesionerController::class, 'store'])->name('kuesioner.store');
-    Route::put('/kuesioner/update/{kuesioner}', [KuesionerController::class, 'update'])->name('kuesioner.update');
-    Route::delete('/kuesioner/{id}', [KuesionerController::class, 'destroy'])->name('kuesioner.destroy');
+    Route::get('/kuesioner/downloadPdf/{id}', [KuesionerController::class, 'downloadPdf'])->name('kuesioner.downloadPdf');
 });

@@ -10,8 +10,9 @@ use App\Http\Controllers\Admin\MandorController;
 use App\Http\Controllers\Admin\SupirController;
 use App\Http\Controllers\Admin\MobilController;
 use App\Http\Controllers\Admin\PertanyaanController;
+use App\Http\Controllers\Admin\KuesionerController;
 
-Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:admin']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'user_type:admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/list-karyawan-pelaksana', [KaryawanPelaksanaController::class, 'index'])->name('admin.list-karyawan-pelaksana');
     Route::get('/list-karyawan-pimpinan', [KaryawanPimpinanController::class, 'index'])->name('admin.list-karyawan-pimpinan');
@@ -32,4 +33,7 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:admin']], fun
     Route::put('/pertanyaan/update/{pertanyaan}', [PertanyaanController::class, 'update'])->name('pertanyaan.update');
     Route::delete('/pertanyaan/{id}', [PertanyaanController::class, 'destroy'])->name('pertanyaan.destroy');
 
+    /* Route Kuesioner */
+    Route::get('/list-kuesioner', [KuesionerController::class, 'index'])->name('kuesioner.index');
+    Route::get('/list-kuesioner/downloadPdf/{id}', [KuesionerController::class, 'downloadPdf'])->name('kuesioner.downloadPdf');
 });

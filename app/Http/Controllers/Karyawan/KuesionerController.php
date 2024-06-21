@@ -78,7 +78,7 @@ class KuesionerController extends Controller
                 })
                 ->addColumn('action', function($row) {
                     $editUrl = route('kuesioner.jawaban', $row->id);
-                    $pdfUrl = route('kuesioner.downloadPdf', $row->id);
+                    $pdfUrl = url('karyawan/kuesioner/downloadPdf', $row->id);
 
                     $btn = '';
                     /* Kondisi button */

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mandor;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -59,7 +59,7 @@ class KuesionerController extends Controller
                     return '<span class="' . $badgeClass . '">' . $status . '</span>';
                 })
                 ->addColumn('action', function($row) {
-                    $pdfUrl = url('mandor/kuesioner/downloadPdf', $row->id);
+                    $pdfUrl = url('admin/list-kuesioner/downloadPdf', $row->id);
 
                     $btn = '';
                     /* Kondisi button */
@@ -78,7 +78,7 @@ class KuesionerController extends Controller
             ->distinct()
             ->pluck('status_kuesioner');
 
-        return view ('mandor.kuesioner.index', compact('statusKuesionerList'));
+        return view ('admin.list-kuesioner', compact('statusKuesionerList'));
     }
 
     /**
