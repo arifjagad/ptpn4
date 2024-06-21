@@ -1,4 +1,4 @@
-@extends('mandor.layouts.vertical', ['page_title' => 'Daftar Kuesioner'])
+@extends('karyawan.layouts.vertical', ['page_title' => 'Daftar Kuesioner'])
 
 @section('css')
 @vite([
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         {{-- List data table --}}
-                        <table id="datatable-mandor-kuesioner" class="table table-striped w-100 nowrap">
+                        <table id="datatable-karyawan-kuesioner" class="table table-striped w-100 nowrap">
                             <thead>
                                 <tr>
                                     <th>Nama Karyawan</th>
@@ -62,7 +62,7 @@
 @section('script')
     @vite([
         'resources/js/pages/demo.datatable-init.js',
-        'resources/js/custom/mandor-kuesioner.js',
+        'resources/js/custom/karyawan-kuesioner.js',
     ])
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @endsection

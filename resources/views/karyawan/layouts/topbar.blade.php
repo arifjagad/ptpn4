@@ -73,9 +73,22 @@
                     </span>
                     <span class="d-lg-flex flex-column gap-1 d-none">
                         <h5 class="my-0">
-                            {{ auth()->user()->name }}
+                            @php
+                                use App\Models\KaryawanPimpinan;
+                                use App\Models\KaryawanPelaksana;
+
+                                $nik = session()->get('nik');
+                                if(auth()->user()->id === 6) {
+                                    $namaKaryawan = KaryawanPimpinan::where('NIK', $nik)->pluck('NAMA')->first();
+                                } elseif (auth()->user()->id === 7) {
+                                    $namaKaryawan = KaryawanPelaksana::where('NIK', $nik)->pluck('NAMA')->first();
+                                } else {
+                                    $namaKaryawan = auth()->user()->name;
+                                }
+                            @endphp
+                            {{ $namaKaryawan }}
                         </h5>
-                        <h6 class="my-0 fw-normal">Founder</h6>
+                        <h6 class="my-0 fw-normal text-capitalize">{{ auth()->user()->user_type }}</h6>
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated profile-dropdown">
@@ -85,16 +98,12 @@
                     </div>
 
                     <!-- item-->
-                    <a href="{{ route('any', ['profile']) }}" class="dropdown-item">
+                    @if(!in_array(auth()->user()->id, [6, 7]))
+                    <a href="#" class="dropdown-item">
                         <i class="ri-account-circle-line fs-18 align-middle me-1"></i>
                         <span>My Account</span>
                     </a>
-
-                    <!-- item-->
-                    <a href="{{ route('second', ['pages', 'faq']) }}" class="dropdown-item">
-                        <i class="ri-customer-service-2-line fs-18 align-middle me-1"></i>
-                        <span>Support</span>
-                    </a>
+                    @endif
 
                     <!-- item-->
                     <form method="POST" action="{{ route('logout') }}">
