@@ -1,7 +1,6 @@
 @extends('admin.layouts.vertical', ['page_title' => 'Dashboard'])
 
 @section('css')
-    @vite(['node_modules/daterangepicker/daterangepicker.css', 'node_modules/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css'])
 @endsection
 
 @section('content')
@@ -14,12 +13,15 @@
                     <h4 class="page-title">Dashboard</h4>
                 </div>
             </div>
+            <x-count-card title="Jumlah Karyawan" count="{{ $jumlahKaryawan }}" />
+            <x-count-card title="Jumlah Mandor" count="{{ $jumlahMandor }}" />
+            <x-count-card title="Jumlah Supir" count="{{ $jumlahSupir }}" />
+            <x-count-card title="Jumlah Mobil" count="{{ $jumlahMobil }}" />
         </div>
-
+        
     </div>
     <!-- container -->
 @endsection
 
 @section('script')
-    @vite(['resources/js/pages/demo.dashboard.js'])
 @endsection

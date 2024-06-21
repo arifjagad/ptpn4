@@ -4,6 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Karyawan;
+use App\Models\KaryawanPelaksana;
+use App\Models\KaryawanPimpinan;
+use App\Models\Mobil;
+use App\Models\Mandor;
+use App\Models\Supir;
 
 class DashboardController extends Controller
 {
@@ -13,7 +19,22 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        return view('admin.dashboard');
+        /* $jumlahKaryawan = Karyawan::count() +
+            KaryawanPelaksana::where('MBT', '')->where('PENS', '')->count() +
+            KaryawanPimpinan::where('MBT', '')->where('PENS', '')->count(); */
+        $jumlahKaryawan = Karyawan::count();
+        $jumlahMobil = Mobil::count();
+        $jumlahMandor = Mandor::count();
+        $jumlahSupir = Supir::count();
+
+        return view(
+            'admin.dashboard', 
+            compact(
+                'jumlahKaryawan', 
+                'jumlahMobil', 
+                'jumlahMandor', 
+                'jumlahSupir')
+            );
     }
 
     /**
