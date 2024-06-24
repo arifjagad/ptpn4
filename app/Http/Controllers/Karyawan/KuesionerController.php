@@ -34,8 +34,10 @@ class KuesionerController extends Controller
                     $query->where('nik', $nik);
                 });
             } elseif (auth()->user()->id === 7){
-                $karyawanId = auth()->user()->karyawan->id;
-                $query = Kuesioner::where('karyawan_id', $karyawanId);
+                $nik = session()->get('nik');
+                $query = Kuesioner::whereHas('kegiatan', function ($query) use ($nik) {
+                    $query->where('nik', $nik);
+                });
             } else {
                 $karyawanId = auth()->user()->karyawan->id;
                 $query = Kuesioner::where('karyawan_id', $karyawanId);

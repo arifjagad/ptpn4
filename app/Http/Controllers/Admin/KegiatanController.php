@@ -62,8 +62,7 @@ class KegiatanController extends Controller
                 })
                 ->addCOlumn('status_kegiatan', function ($kegiatan) {
                     $statuses = [
-                        'Menunggu Keberangkatan' => 'badge bg-warning text-white px-2 py-1',
-                        'Sedang Berjalan' => 'badge bg-info text-white px-2 py-1',
+                        'Sedang Diproses' => 'badge bg-info text-white px-2 py-1',
                         'Selesai' => 'badge bg-success text-white px-2 py-1',
                     ];
 

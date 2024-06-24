@@ -1,4 +1,4 @@
-<div class="col-xl-3 col-lg-3">
+<div class="{{ $attributes->get('class', 'col-xl-3 col-lg-3') }}">
     <div class="card">
         <div class="card-body">
             <div class="row align-items-center">

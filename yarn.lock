@@ -404,7 +404,7 @@ caniuse-lite@^1.0.30001629:
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001636.tgz"
   integrity sha512-bMg2vmr8XBsbL6Lr0UHXy/21m84FTxDLWn2FSqMd5PrlbMxwJlQnC2YWYxVgp66PZE+BBNF2jYQUBKCo1FDeZg==
 
-chart.js@^3.7.1:
+chart.js@^3.9.1:
   version "3.9.1"
   resolved "https://registry.npmjs.org/chart.js/-/chart.js-3.9.1.tgz"
   integrity sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==
