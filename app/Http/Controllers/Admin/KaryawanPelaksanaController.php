@@ -54,25 +54,6 @@ class KaryawanPelaksanaController extends Controller
         return view('admin.list-karyawan-pelaksana', compact('jabatanList'));
     }
 
-    // public function index(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $cacheKey = 'karyawan_pelaksana_datatable_data'; // Unique cache key
-
-    //         $data = Cache::remember($cacheKey, 60, function () { // Cache for 60 minutes
-    //             $query = KaryawanPelaksana::query()
-    //                 ->where('MBT', '')
-    //                 ->where('PENS', '');
-
-    //             return DataTables::of($query)->make(true);
-    //         });
-
-    //         return $data;
-    //     }
-
-    //     return view('admin.list-karyawan-pelaksana');
-    // }
-
     /**
      * Show the form for creating a new resource.
      */

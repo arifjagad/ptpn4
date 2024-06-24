@@ -269,6 +269,7 @@ class KegiatanController extends Controller
 
         $kegiatan->mobil->update([
             'status_pemakaian' => 'Tersedia',
+            'tanggal_terakhir_beroperasi' => $kegiatan->updated_at,
             'jumlah_km_awal' => $request->jumlah_km_akhir,
         ]);
 

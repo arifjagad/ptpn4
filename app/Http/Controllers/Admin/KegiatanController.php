@@ -44,7 +44,7 @@ class KegiatanController extends Controller
                             ->first();
                         return $karyawan;
                     } else {
-                        $karyawan = $kegiatan->mandor->user->name;
+                        $karyawan = $kegiatan->karyawan->user->name;
                         return $karyawan;
                     }
                 })
@@ -121,7 +121,7 @@ class KegiatanController extends Controller
         $data = [
             'NIK' => $kegiatan->nik,
             'Nama Karyawan' => $kegiatan->karyawan_id == 4 ? KaryawanPimpinan::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() :
-                ($kegiatan->karyawan_id == 5 ? KaryawanPelaksana::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() : $kegiatan->mandor->user->name),
+                ($kegiatan->karyawan_id == 5 ? KaryawanPelaksana::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() : $kegiatan->karyawan->user->name),
             'Agenda' => $kegiatan->agenda,
             'Tujuan' => $kegiatan->tujuan,
             'Tanggal Kegiatan' => Carbon::parse($kegiatan->tanggal_kegiatan)->translatedFormat('d F Y'),
