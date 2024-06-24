@@ -17,9 +17,9 @@ require __DIR__ . '/auth.php';
 
 /*  */
 
-Route::prefix('/')->group(base_path('routes/admin/web.php'));
-Route::prefix('/')->group(base_path('routes/mandor/web.php'));
-Route::prefix('/')->group(base_path('routes/karyawan/web.php'));
+Route::prefix('admin')->group(base_path('routes/admin/web.php'));
+Route::prefix('mandor')->group(base_path('routes/mandor/web.php'));
+Route::prefix('karyawan')->group(base_path('routes/karyawan/web.php'));
 
 Route::group(['prefix' => '/', 'middleware'=>'auth'], function () {
     Route::redirect('/', '/login'); 

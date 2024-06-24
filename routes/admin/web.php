@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\MobilController;
 use App\Http\Controllers\Admin\PertanyaanController;
 use App\Http\Controllers\Admin\KuesionerController;
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'user_type:admin']], function () {
+Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/list-karyawan-pelaksana', [KaryawanPelaksanaController::class, 'index'])->name('admin.list-karyawan-pelaksana');
     Route::get('/list-karyawan-pimpinan', [KaryawanPimpinanController::class, 'index'])->name('admin.list-karyawan-pimpinan');

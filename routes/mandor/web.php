@@ -8,7 +8,7 @@ use App\Http\Controllers\Mandor\KaryawanController;
 use App\Http\Controllers\Mandor\KegiatanController;
 use App\Http\Controllers\Mandor\KuesionerController;
 
-Route::group(['prefix' => 'mandor', 'middleware' => ['auth', 'user_type:mandor']], function () {
+Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('mandor.dashboard');
 
     /* Route Supir */
