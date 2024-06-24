@@ -9,6 +9,7 @@ use App\Models\KaryawanPimpinan;
 use App\Models\KaryawanPelaksana;
 use Yajra\DataTables\Facades\DataTables;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class KegiatanController extends Controller
 {
@@ -117,13 +118,17 @@ class KegiatanController extends Controller
     public function show(string $id)
     {
         //
-        $kegiatan = Kegiatan::find($id);
-        $kegiatan->tujuan = json_decode($kegiatan->tujuan, true);
-        $kegiatan->tujuan = implode(', ', $kegiatan->tujuan);
+        $kegiatan = Cache::remember("kegiatan_{$id}", 60, function() use ($id) {
+            return Kegiatan::with(['karyawan.user', 'supir', 'mobil'])
+                ->find($id);
+        });
         
         if (!$kegiatan) {
             return response()->json(['message' => 'Kegiatan not found'], 404);
         }
+        
+        $kegiatan->tujuan = json_decode($kegiatan->tujuan, true);
+        $kegiatan->tujuan = implode(', ', $kegiatan->tujuan);
 
         // Custom response
         $data = [

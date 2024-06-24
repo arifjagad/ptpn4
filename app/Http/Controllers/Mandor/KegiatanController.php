@@ -216,22 +216,26 @@ class KegiatanController extends Controller
      */
     public function show(string $id)
     {
-        //
-        $kegiatan = Kegiatan::find($id);
-        $kegiatan->tujuan = json_decode($kegiatan->tujuan, true);
-        $kegiatan->tujuan = implode(', ', $kegiatan->tujuan);
+        // Eager load relationships
+        $kegiatan = Cache::remember("kegiatan_{$id}", 60, function() use ($id) {
+            return Kegiatan::with(['karyawan.user', 'supir', 'mobil'])
+                ->find($id);
+        });
         
         if (!$kegiatan) {
             return response()->json(['message' => 'Kegiatan not found'], 404);
         }
+        
+        $kegiatan->tujuan = json_decode($kegiatan->tujuan, true);
+        $kegiatan->tujuan = implode(', ', $kegiatan->tujuan);
 
-        // Custom response
         $data = [
             'NIK' => $kegiatan->nik,
-            'Nama Karyawan' => 
-                ($kegiatan->karyawan_id == 4 ? KaryawanPimpinan::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() :
-                ($kegiatan->karyawan_id == 5 ? KaryawanPelaksana::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() : 
-                $kegiatan->karyawan->user->name)),
+            'Nama Karyawan' => $kegiatan->karyawan_id == 4 
+                ? KaryawanPimpinan::where('NIK', $kegiatan->nik)->pluck('NAMA')->first()
+                : ($kegiatan->karyawan_id == 5 
+                    ? KaryawanPelaksana::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() 
+                    : $kegiatan->karyawan->user->name),
             'Agenda' => $kegiatan->agenda,
             'Tujuan' => $kegiatan->tujuan,
             'Tanggal Kegiatan' => Carbon::parse($kegiatan->tanggal_kegiatan)->translatedFormat('d F Y'),

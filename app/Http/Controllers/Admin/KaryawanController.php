@@ -20,7 +20,8 @@ class KaryawanController extends Controller
             $jenisKelamin = $request->get('jenis_kelamin');
 
             // Cache 60 menit
-            $cacheKey = 'karyawan_data';
+            $cacheKey = 'karyawan_tamu_data_' . ($jenisKelamin ?? 'all');
+
             $karyawanData = Cache::remember($cacheKey, 60, function() use ($jenisKelamin) {
                 $query = Karyawan::query();
 
@@ -29,7 +30,7 @@ class KaryawanController extends Controller
                     $query->where('jenis_kelamin', $jenisKelamin);
                 }
 
-                return $query->get();
+                return $query->whereNotIn('id', [4, 5])->get();
             });
     
             return DataTables::of($karyawanData)

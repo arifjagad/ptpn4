@@ -1,4 +1,4 @@
-@extends('karyawan.layouts.vertical', ['page_title' => 'Profile'])
+@extends('admin.layouts.vertical', ['page_title' => 'Profile'])
 
 @section('css')
     @vite([

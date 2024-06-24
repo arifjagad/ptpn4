@@ -21,7 +21,7 @@ class KaryawanPelaksanaController extends Controller
             $jabatan = $request->get('jabatan');
 
             // Cache key yang unik berdasarkan filter
-            $cacheKey = 'karyawan_pelaksana_data';
+            $cacheKey = 'karyawan_pelaksana_data_' . ($jenisKelamin ?? 'all') . '_' . ($jabatan ?? 'all');
 
             // Query data dengan cache
             $karyawanPelaksanaData = Cache::remember($cacheKey, 60, function() use ($jenisKelamin, $jabatan) {

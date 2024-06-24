@@ -21,11 +21,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        /* $jumlahKaryawan = Karyawan::count() +
+        $jumlahKaryawan = Karyawan::count() +
             KaryawanPelaksana::where('MBT', '')->where('PENS', '')->count() +
-            KaryawanPimpinan::where('MBT', '')->where('PENS', '')->count(); */
+            KaryawanPimpinan::where('MBT', '')->where('PENS', '')->count();
         /* Menampilkan data count */
-        $jumlahKaryawan = Karyawan::count();
+        // $jumlahKaryawan = Karyawan::count();
         $jumlahMobil = Mobil::count();
         $jumlahMandor = Mandor::count();
         $jumlahSupir = Supir::count();
