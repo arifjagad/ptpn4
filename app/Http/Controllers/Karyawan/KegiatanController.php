@@ -22,10 +22,7 @@ class KegiatanController extends Controller
             /* Mengambil data */
             $statusKegiatan = $request->get('status_kegiatan');
 
-            if(auth()->user()->id === 6){
-                $nik = session()->get('nik');
-                $query = Kegiatan::where('nik', $nik);
-            } elseif (auth()->user()->id === 7){
+            if(auth()->user()->id === 6 || auth()->user()->id === 7){
                 $nik = session()->get('nik');
                 $query = Kegiatan::where('nik', $nik);
             } else {
@@ -72,8 +69,7 @@ class KegiatanController extends Controller
                 })
                 ->addCOlumn('status_kegiatan', function ($kegiatan) {
                     $statuses = [
-                        'Menunggu Keberangkatan' => 'badge bg-warning text-white px-2 py-1',
-                        'Sedang Berjalan' => 'badge bg-info text-white px-2 py-1',
+                        'Sedang Diproses' => 'badge bg-info text-white px-2 py-1',
                         'Selesai' => 'badge bg-success text-white px-2 py-1',
                     ];
 

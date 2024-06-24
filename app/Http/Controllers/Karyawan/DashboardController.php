@@ -16,37 +16,51 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        $nik = session()->get('nik');
+        if (auth()->user()->id === 6 || auth()->user()->id === 7) {
+            $nik = session()->get('nik');
+        }
 
         /* Chart */
         $monthlyData = array_fill(1, 12, 0);
         /* Mengambil data kegiatan yang selesai */
-        $dataKegiatanSelesai = Kegiatan::where('status_kegiatan', 'Selesai')
-            ->where(
-                auth()->user()->id == 6 || auth()->user()->id == 7 ? 'nik' : 'karyawan_id', 
-                auth()->user()->id == 6 || auth()->user()->id == 7 ? $nik : auth()->user()->karyawan->id)
+        $query = Kegiatan::where('status_kegiatan', 'Selesai')
             ->select(
                 DB::raw('MONTH(created_at) as month'),
                 DB::raw('COUNT(*) as total')
             )
-            ->groupBy(DB::raw('MONTH(created_at)'))
-            ->get();
+            ->groupBy(DB::raw('MONTH(created_at)'));
+
+        if (auth()->user()->id === 6 || auth()->user()->id === 7) {
+            $query->where('nik', $nik);
+        } else {
+            $karyawanId = auth()->user()->karyawan->id;
+            $query->where('karyawan_id', $karyawanId);
+        }
+
+        $dataKegiatanSelesai = $query->get();
+
         foreach ($dataKegiatanSelesai as $data) {
             $monthlyData[$data->month] = $data->total;
         }
 
         $monthlyDataInProgress = array_fill(1, 12, 0);
         /* Mengambil data kegiatan yang sedang proses */
-        $dataKegiatanSedangDiproses = Kegiatan::where('status_kegiatan', 'Sedang Diproses')
-            ->where(
-                auth()->user()->id == 6 || auth()->user()->id == 7 ? 'nik' : 'karyawan_id', 
-                auth()->user()->id == 6 || auth()->user()->id == 7 ? $nik : auth()->user()->karyawan->id)
+        $query = Kegiatan::where('status_kegiatan', 'Sedang Diproses')
             ->select(
                 DB::raw('MONTH(created_at) as month'),
                 DB::raw('COUNT(*) as total')
             )
-            ->groupBy(DB::raw('MONTH(created_at)'))
-            ->get();
+            ->groupBy(DB::raw('MONTH(created_at)'));
+
+        if (auth()->user()->id === 6 || auth()->user()->id === 7) {
+            $query->where('nik', $nik);
+        } else {
+            $karyawanId = auth()->user()->karyawan->id;
+            $query->where('karyawan_id', $karyawanId);
+        }
+
+        $dataKegiatanSedangDiproses = $query->get();
+
         foreach ($dataKegiatanSedangDiproses as $data) {
             $monthlyDataInProgress[$data->month] = $data->total;
         }
