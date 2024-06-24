@@ -134,7 +134,7 @@
                                     @enderror
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary">Update Data Mandor</button>
+                                    <button type="submit" class="btn btn-primary">Update Data Karyawan</button>
                                 </div>
                             </div>
                         </form>
