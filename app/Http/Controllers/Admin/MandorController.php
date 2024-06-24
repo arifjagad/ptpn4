@@ -20,7 +20,8 @@ class MandorController extends Controller
             $jenisKelamin = $request->get('jenis_kelamin');
 
             // Cache 60 menit
-            $cacheKey = 'mandor_data';
+            $cacheKey = 'mandor_data_' . ($jenisKelamin ?? 'all');
+            
             $mandorData = Cache::remember($cacheKey, 60, function() use ($jenisKelamin) {
                 $query = Mandor::query();
 
