@@ -1,4 +1,4 @@
-@extends('mandor.layouts.vertical', ['page_title' => 'Profile'])
+@extends('karyawan.layouts.vertical', ['page_title' => 'Profile'])
 
 @section('css')
     @vite([
@@ -29,7 +29,7 @@
                                 <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Nama Karyawan</label>
-                                        <input type="text" class="form-control" name="name" id="name"
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
                                             value="{{ old('name', auth()->user()->name) }}">
                                     </div>
                                     @error('name')
@@ -39,7 +39,7 @@
                                 <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" name="email" id="email"
+                                        <input type="email" class="form-control @error('name') is-invalid @enderror" name="email" id="email"
                                             value="{{ old('email', auth()->user()->email) }}">
                                     </div>
                                     @error('email')
@@ -49,7 +49,7 @@
                                 <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
-                                        <input type="password" class="form-control" name="password" id="password">
+                                        <input type="password" class="form-control @error('name') is-invalid @enderror" name="password" id="password">
                                     </div>
                                     @error('password')
                                         <div>{{ $message }}</div>
@@ -58,7 +58,7 @@
                                 <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="password_confirmation" class="form-label">Password Confirm</label>
-                                        <input type="password" class="form-control" name="password_confirmation" id="password_confirmation">
+                                        <input type="password" class="form-control @error('name') is-invalid @enderror" name="password_confirmation" id="password_confirmation">
                                     </div>
                                     @error('password_confirmation')
                                         <div>{{ $message }}</div>
@@ -74,25 +74,25 @@
                 </div>
                 <div class="card">
                     <div class="d-flex card-header justify-content-between align-items-center">
-                        <h4 class="header-title">Profile Mandor</h4>
+                        <h4 class="header-title">Profile Karyawan</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('profile.mandor.update') }}" method="POST">
+                        <form action="{{ route('profile.karyawan.update') }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Nama Karyawan</label>
-                                        <input type="text" class="form-control" name="name" id="name"
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
                                             value="{{ old('name', auth()->user()->name) }}" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="nik" class="form-label">NIK</label>
-                                        <input type="nik" class="form-control" name="nik" id="nik"
-                                            value="{{ old('nik', auth()->user()->mandor->nik) }}">
+                                        <input type="nik" class="form-control @error('nik') is-invalid @enderror" name="nik" id="nik"
+                                            value="{{ old('nik', auth()->user()->karyawan->nik) }}">
                                     </div>
                                     @error('nik')
                                         <div>{{ $message }}</div>
@@ -101,8 +101,8 @@
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="niksap" class="form-label">NIKSAP</label>
-                                        <input type="niksap" class="form-control" name="niksap" id="niksap"
-                                            value="{{ old('nik', auth()->user()->mandor->niksap) }}">
+                                        <input type="niksap" class="form-control @error('niksap') is-invalid @enderror" name="niksap" id="niksap"
+                                            value="{{ old('nik', auth()->user()->karyawan->niksap) }}">
                                     </div>
                                     @error('niksap')
                                         <div>{{ $message }}</div>
@@ -113,8 +113,8 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="nomor_telp" class="form-label">Nomor Telp</label>
-                                        <input type="nomor_telp" class="form-control" name="nomor_telp" id="nomor_telp"
-                                            value="{{ old('nik', auth()->user()->mandor->nomor_telp) }}">
+                                        <input type="nomor_telp" class="form-control @error('nomor_telp') is-invalid @enderror" name="nomor_telp" id="nomor_telp"
+                                            value="{{ old('nik', auth()->user()->karyawan->nomor_telp) }}">
                                     </div>
                                     @error('nomor_telp')
                                         <div>{{ $message }}</div>
@@ -123,10 +123,10 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                                        <select id="jenis_kelamin" name="jenis_kelamin" class="form-control select2" data-toggle="select2">
+                                        <select id="jenis_kelamin" name="jenis_kelamin" class="form-control select2 @error('jenis_kelamin') is-invalid @enderror" data-toggle="select2">
                                             <option value="">Pilih Jenis Kelamin</option>
-                                            <option value="Laki-laki" {{ old('jenis_kelamin', auth()->user()->mandor->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
-                                            <option value="Perempuan" {{ old('jenis_kelamin', auth()->user()->mandor->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                            <option value="Laki-laki" {{ old('jenis_kelamin', auth()->user()->karyawan->jenis_kelamin) == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                            <option value="Perempuan" {{ old('jenis_kelamin', auth()->user()->karyawan->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                                         </select>
                                     </div>
                                     @error('jenis_kelamin')

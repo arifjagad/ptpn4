@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Karyawan\DashboardController;
 use App\Http\Controllers\Karyawan\KegiatanController;
 use App\Http\Controllers\Karyawan\KuesionerController;
+use App\Http\Controllers\Karyawan\ProfileController;
 
 Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:karyawan,karyawan pimpinan,karyawan pelaksana']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('karyawan.dashboard');
@@ -15,4 +16,8 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:karyawan,kary
     Route::get('/kuesioner/jawaban/{id}', [KuesionerController::class, 'jawaban'])->name('kuesioner.jawaban');
     Route::put('/kuesioner/jawaban/{id}', [KuesionerController::class, 'update'])->name('kuesioner.update');
     Route::get('/kuesioner/downloadPdf/{id}', [KuesionerController::class, 'downloadPdf'])->name('kuesioner.downloadPdf');
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile/user/update', [ProfileController::class, 'update'])->name('profile.user.update');
+    Route::put('/profile/karyawan/update', [ProfileController::class, 'updateKaryawan'])->name('profile.karyawan.update');
 });
