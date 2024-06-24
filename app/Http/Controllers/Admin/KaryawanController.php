@@ -29,7 +29,7 @@ class KaryawanController extends Controller
                     $query->where('jenis_kelamin', $jenisKelamin);
                 }
 
-                return $query->get();
+                return $query->whereNotIn('id', [4, 5])->get();
             });
     
             return DataTables::of($karyawanData)

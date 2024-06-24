@@ -9,6 +9,7 @@ use App\Models\KaryawanPelaksana;
 use App\Models\Kuesioner;
 use Yajra\DataTables\Facades\DataTables;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Cache;
 
 class KuesionerController extends Controller
 {
@@ -130,15 +131,14 @@ class KuesionerController extends Controller
     }
 
     public function downloadPdf($id) {
-        $kuesioner = Kuesioner::findOrFail($id);
+        $kuesioner = Cache::remember("kuesioner_$id", 60, function() use ($id) {
+            return Kuesioner::with(['kegiatan.supir', 'kegiatan.mobil', 'kegiatan.karyawan.user'])->findOrFail($id);
+        });
         $jawaban = json_decode($kuesioner->jawaban, true);
-    
-        // Pastikan untuk memuat semua relasi yang diperlukan
-        $kuesioner->load('kegiatan.supir', 'kegiatan.mobil');
     
         $karyawanId = $kuesioner->kegiatan->karyawan_id;
         $nik = $kuesioner->kegiatan->nik;
-
+    
         if ($karyawanId == 4) {
             $namaKaryawan = KaryawanPimpinan::where('NIK', $nik)->value('NAMA') ?? 'Tidak ditemukan';
         } elseif ($karyawanId == 5) {

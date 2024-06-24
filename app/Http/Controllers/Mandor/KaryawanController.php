@@ -39,6 +39,8 @@ class KaryawanController extends Controller
                 $query->where('status_perjalanan', $statusPerjalanan);
             }
 
+            $query->whereNotIn('id', [4, 5])->get();
+
             /* Menampilkan data yang ada ke datatables, dan menambahkan kolom */
             return DataTables::of($query)
                 ->addColumn('nama_karyawan', function ($karyawan) {
