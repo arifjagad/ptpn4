@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Karyawan;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class ProfileController extends Controller
     public function index()
     {
         //
-        return view ('karyawan.profile.index');
+        return view ('admin.profile.index');
     }
 
     /**
@@ -79,7 +79,7 @@ class ProfileController extends Controller
         $user->save();
 
         Alert::success('Berhasil!', 'Berhasil mengupdate data user!');
-        return redirect()->back();
+        return redirect()->back()->with('success', 'User berhasil diupdate.');
     }
 
     /**
@@ -88,31 +88,5 @@ class ProfileController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function updateMandor(Request $request){
-        $validator = Validator::make($request->all(), [
-            'nik' => 'required|string|max:255|',
-            'niksap' => 'required|string|max:255|',
-            'nomor_telp' => 'required|string|regex:/^08\d{8,12}$/',
-            'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
-        ]);
-
-        if ($validator->fails()) {
-            Alert::error('Gagal!', 'Gagal mengupdate data profile!');
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-        $user = User::find(auth()->id());
-        $karyawan = $user->karyawan;
-        $karyawan->nik = $request->nik;
-        $karyawan->niksap = $request->niksap;
-        $karyawan->jabatan = 'TAMU';
-        $karyawan->nomor_telp = $request->nomor_telp;
-        $karyawan->jenis_kelamin = $request->jenis_kelamin;
-        $karyawan->save();
-
-        Alert::success('Berhasil!', 'Berhasil mengupdate data profile!');
-        return redirect()->back();
     }
 }

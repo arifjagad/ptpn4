@@ -22,7 +22,7 @@
                         <p class="text-muted fs-14">
                             Lakukan update profile di form ini.
                         </p>
-                        <form action="{{ route('profile.user.update') }}" method="POST">
+                        <form action="{{ route('profile.user.karyawan.update') }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -49,7 +49,7 @@
                                 <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
-                                        <input type="password" class="form-control @error('name') is-invalid @enderror" name="password" id="password">
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
                                     </div>
                                     @error('password')
                                         <div>{{ $message }}</div>
@@ -58,7 +58,7 @@
                                 <div class="col-md-3">
                                     <div class="mb-3">
                                         <label for="password_confirmation" class="form-label">Password Confirm</label>
-                                        <input type="password" class="form-control @error('name') is-invalid @enderror" name="password_confirmation" id="password_confirmation">
+                                        <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation">
                                     </div>
                                     @error('password_confirmation')
                                         <div>{{ $message }}</div>

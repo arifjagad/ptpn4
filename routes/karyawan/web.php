@@ -18,6 +18,6 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:karyawan,kary
     Route::get('/kuesioner/downloadPdf/{id}', [KuesionerController::class, 'downloadPdf'])->name('kuesioner.downloadPdf');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('/profile/user/update', [ProfileController::class, 'update'])->name('profile.user.update');
+    Route::put('/profile/user/karyawan/update', [ProfileController::class, 'update'])->name('profile.user.karyawan.update');
     Route::put('/profile/karyawan/update', [ProfileController::class, 'updateKaryawan'])->name('profile.karyawan.update');
 });

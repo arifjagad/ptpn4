@@ -50,6 +50,6 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], fu
 
     /* Route Profile */
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('/profile/user/update', [ProfileController::class, 'update'])->name('profile.user.update');
+    Route::put('/profile/user/mandor/update', [ProfileController::class, 'update'])->name('profile.user.mandor.update');
     Route::put('/profile/mandor/update', [ProfileController::class, 'updateMandor'])->name('profile.mandor.update');
 });
