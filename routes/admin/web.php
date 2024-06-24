@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\SupirController;
 use App\Http\Controllers\Admin\MobilController;
 use App\Http\Controllers\Admin\PertanyaanController;
 use App\Http\Controllers\Admin\KuesionerController;
+use App\Http\Controllers\Admin\ProfileController;
 
 Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -36,4 +37,8 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:admin']], fun
     /* Route Kuesioner */
     Route::get('/list-kuesioner', [KuesionerController::class, 'index'])->name('kuesioner.index');
     Route::get('/list-kuesioner/downloadPdf/{id}', [KuesionerController::class, 'downloadPdf'])->name('kuesioner.downloadPdf');
+
+    /* Route Profile */
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile/user/admin/update', [ProfileController::class, 'update'])->name('profile.user.admin.update');
 });

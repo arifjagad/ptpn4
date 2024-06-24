@@ -13,15 +13,70 @@
                     <h4 class="page-title">Dashboard</h4>
                 </div>
             </div>
+
+            {{-- Count card --}}
             <x-count-card title="Jumlah Karyawan" count="{{ $jumlahKaryawan }}" />
             <x-count-card title="Jumlah Mandor" count="{{ $jumlahMandor }}" />
             <x-count-card title="Jumlah Supir" count="{{ $jumlahSupir }}" />
             <x-count-card title="Jumlah Mobil" count="{{ $jumlahMobil }}" />
+
+            {{-- Chart --}}
+            <div class="col-12">
+                <div class="card">
+                    <div class="d-flex card-header justify-content-between align-items-center">
+                        <h4 class="header-title">Jumlah Kegiatan Tiap Bulan - 2024</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="kegiatanChart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
-        
     </div>
     <!-- container -->
 @endsection
 
 @section('script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var dataKegiatanSelesai = {!! json_encode($dataKegiatanSelesai) !!};
+    var dataKegiatanSedangDiproses = {!! json_encode($dataKegiatanSedangDiproses) !!};
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var chartData = {
+            labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+            datasets: [
+                {
+                    label: 'Jumlah Kegiatan Yang Selesai',
+                    data: dataKegiatanSelesai,
+                    backgroundColor: 'rgba(255, 0, 0, 0.2)',
+                    borderColor: 'red',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Jumlah Kegiatan Yang Sedang Diproses',
+                    data: dataKegiatanSedangDiproses,
+                    backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                    borderColor: 'blue',
+                    borderWidth: 1
+                },
+            ]
+        };
+
+        // Membuat Vertical Bar Chart menggunakan Chart.js
+        var ctx = document.getElementById('kegiatanChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: chartData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
 @endsection

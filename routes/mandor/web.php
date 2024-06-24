@@ -7,6 +7,7 @@ use App\Http\Controllers\Mandor\MobilController;
 use App\Http\Controllers\Mandor\KaryawanController;
 use App\Http\Controllers\Mandor\KegiatanController;
 use App\Http\Controllers\Mandor\KuesionerController;
+use App\Http\Controllers\Mandor\ProfileController;
 
 Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('mandor.dashboard');
@@ -46,4 +47,9 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:mandor']], fu
     /* Route Kuesioner */
     Route::get('/kuesioner', [KuesionerController::class, 'index'])->name('kuesioner.index');
     Route::get('/kuesioner/downloadPdf/{id}', [KuesionerController::class, 'downloadPdf'])->name('kuesioner.downloadPdf');
+
+    /* Route Profile */
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile/user/mandor/update', [ProfileController::class, 'update'])->name('profile.user.mandor.update');
+    Route::put('/profile/mandor/update', [ProfileController::class, 'updateMandor'])->name('profile.mandor.update');
 });

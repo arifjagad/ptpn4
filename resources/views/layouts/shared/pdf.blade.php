@@ -45,7 +45,11 @@
                         <tr>
                             <th class="text-left w-30">Tujuan</th>
                             <th class="w-10">:</th>
-                            <td class="w-60">{{ $kuesioner->kegiatan->tujuan }}</td>
+                            @php
+                                $tujuanArray = json_decode($kuesioner->kegiatan->tujuan, true);
+                                $tujuanString = implode(', ', $tujuanArray);
+                            @endphp
+                            <td class="w-60">{{ $tujuanString }}</td>
                         </tr>
                     </table>
                 </td>

@@ -62,8 +62,7 @@ class KegiatanController extends Controller
                 })
                 ->addCOlumn('status_kegiatan', function ($kegiatan) {
                     $statuses = [
-                        'Menunggu Keberangkatan' => 'badge bg-warning text-white px-2 py-1',
-                        'Sedang Berjalan' => 'badge bg-info text-white px-2 py-1',
+                        'Sedang Diproses' => 'badge bg-info text-white px-2 py-1',
                         'Selesai' => 'badge bg-success text-white px-2 py-1',
                     ];
 
@@ -112,7 +111,9 @@ class KegiatanController extends Controller
     {
         //
         $kegiatan = Kegiatan::find($id);
-
+        $kegiatan->tujuan = json_decode($kegiatan->tujuan, true);
+        $kegiatan->tujuan = implode(', ', $kegiatan->tujuan);
+        
         if (!$kegiatan) {
             return response()->json(['message' => 'Kegiatan not found'], 404);
         }

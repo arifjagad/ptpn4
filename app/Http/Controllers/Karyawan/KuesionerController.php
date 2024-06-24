@@ -28,17 +28,16 @@ class KuesionerController extends Controller
 
             $kuesioner = Kuesioner::query();
 
-            if(auth()->user()->id === 6){
+            if(auth()->user()->id === 6 || auth()->user()->id === 7){
                 $nik = session()->get('nik');
                 $query = Kuesioner::whereHas('kegiatan', function ($query) use ($nik) {
                     $query->where('nik', $nik);
                 });
-            } elseif (auth()->user()->id === 7){
-                $karyawanId = auth()->user()->karyawan->id;
-                $query = Kuesioner::where('karyawan_id', $karyawanId);
             } else {
                 $karyawanId = auth()->user()->karyawan->id;
-                $query = Kuesioner::where('karyawan_id', $karyawanId);
+                $query = Kuesioner::join('kegiatan', 'kuesioner.kegiatan_id', '=', 'kegiatan.id')
+                    ->join('karyawan', 'kegiatan.karyawan_id', '=', 'karyawan.id')
+                    ->where('kegiatan.karyawan_id', $karyawanId);
             }
             //$query = Kuesioner::query();
 
@@ -59,7 +58,7 @@ class KuesionerController extends Controller
                     } elseif ($karyawanId == 5) {
                         return KaryawanPelaksana::where('NIK', $nik)->value('NAMA') ?? 'Tidak ditemukan';
                     } else {
-                        return $kuesioner->kegiatan->karyawan->user->name;
+                        return $kuesioner->kegiatan->karyawan->user->name ?? 'Tidak ditemukan';
                     }
                 })
                 ->addColumn('agenda', function ($kuesioner){

@@ -13,7 +13,7 @@
     <div class="wrapper">
 
         @include('karyawan.layouts/topbar')
-
+        @include('sweetalert::alert')
         @include('karyawan.layouts/left-sidebar')
 
         <!-- ============================================================== -->
