@@ -15,16 +15,16 @@
             </div>
 
             {{-- Count card --}}
-            <x-count-card title="Jumlah Supir" count="{{ $jumlahSupir }}" class="col-lg-6 col-xl-6" /> 
-            <x-count-card title="Jumlah Mobil" count="{{ $jumlahMobil }}" class="col-lg-6 col-xl-6" />
+            <x-count-card title="Jumlah Supir" count="{{ $jumlahSupir }}" class="col-md-6" /> 
+            <x-count-card title="Jumlah Mobil" count="{{ $jumlahMobil }}" class="col-md-6" />
 
             {{-- Chart --}}
             <div class="col-12">
                 <div class="card">
                     <div class="d-flex card-header justify-content-between align-items-center">
-                        <h4 class="header-title">Jumlah Kegiatan Tiap Bulan - 2024</h4>
+                        <h4 class="header-title">Jumlah Kegiatan Tiap Bulan - {{ date('Y') }}</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="w-100" style="height: 320px;">
                         <canvas id="kegiatanChart"></canvas>
                     </div>
                 </div>
@@ -69,6 +69,7 @@
                 data: chartData,
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
                         y: {
                             beginAtZero: true

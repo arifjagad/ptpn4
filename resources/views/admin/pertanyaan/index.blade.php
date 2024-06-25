@@ -57,7 +57,7 @@
             var table = $('#datatable-pertanyaan').DataTable({
                 processing: true,
                 serverSide: true,
-                scrollY: true,
+                scrollX: true,
                 ordering: false,
                 'bDestroy': true,
                 ajax: {

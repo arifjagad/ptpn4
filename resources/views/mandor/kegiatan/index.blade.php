@@ -3,7 +3,6 @@
 @section('css')
     @vite([
         'node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css',
-        'node_modules/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css',
         'node_modules/select2/dist/css/select2.min.css',
     ])
 @endsection
@@ -32,8 +31,8 @@
                             </a>
                         </div>
                         {{-- Filter --}}
-                        <div class="d-flex justify-content-end gap-2 mb-2">
-                            <div class="w-25">
+                        <div class="d-lg-flex justify-content-end gap-1">
+                            <div class="mb-2">
                                 <select id="filter-status-kegiatan" class="form-control select2" data-toggle="select2">
                                     <option value="">Pilih Status Kegiatan</option>
                                     @foreach ($statuskegiatanList as $statusKegiatan)
@@ -41,7 +40,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="flex items-center space-x-2">
+                            <div class="d-flex justify-content-end gap-1 mb-2">
                                 <button id="filter-button" class="btn btn-primary">Filter</button>
                                 <button id="reset-button" class="btn btn-secondary">Reset</button>
                             </div>

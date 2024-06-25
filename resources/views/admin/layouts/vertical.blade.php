@@ -4,8 +4,8 @@
 <head>
     @include('layouts.shared/title-meta', ['title' => $page_title])
     @yield('css')
-    @include('layouts.shared/head-css', ['mode' => $mode ?? '', 'demo' => $demo ?? ''])
-
+    @include('layouts.shared/head-css')
+    <link rel="icon" type="image/x-icon" href="{{ asset('/images/favicon-ptpn.ico') }}">
     @vite(['resources/js/head.js'])
 </head>
 

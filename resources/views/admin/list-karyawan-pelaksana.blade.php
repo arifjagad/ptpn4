@@ -27,23 +27,23 @@
                         </p>
 
                         <!-- Filters -->
-                        <div class="d-flex justify-content-end gap-2 mb-2">
-                            <div class="w-25">
+                        <div class="d-lg-flex justify-content-end gap-1">
+                            <div class="mb-2">
                                 <select id="filter-jenis-kelamin" class="form-control select2" data-toggle="select2">
                                     <option value="">Pilih Jenis Kelamin</option>
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
                             </div>
-                            <div class="w-25">
+                            <div class="mb-2">
                                 <select id="filter-jabatan" class="form-control select2" data-toggle="select2">
-                                    <option value="">Pilih Jabatan</option>
+                                    <option value="">Pilih Jabatan Karyawan</option>
                                     @foreach ($jabatanList as $jabatan)
                                         <option value="{{ $jabatan }}">{{ $jabatan }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="flex items-center space-x-2">
+                            <div class="d-flex justify-content-end gap-1 mb-2">
                                 <button id="filter-button" class="btn btn-primary">Filter</button>
                                 <button id="reset-button" class="btn btn-secondary">Reset</button>
                             </div>

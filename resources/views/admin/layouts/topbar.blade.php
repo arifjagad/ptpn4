@@ -8,20 +8,20 @@
                 <!-- Logo light -->
                 <a href="/" class="logo-light">
                     <span class="logo-lg">
-                        <img src="/images/logo.png" alt="logo">
+                        <img src="/images/logo-ptpn-iv-regional-3.png" alt="logo">
                     </span>
                     <span class="logo-sm">
-                        <img src="/images/logo-sm.png" alt="small logo">
+                        <img src="/images/logo-ptpn-iv-regional-1-sm.png" alt="small logo">
                     </span>
                 </a>
 
                 <!-- Logo Dark -->
                 <a href="/" class="logo-dark">
                     <span class="logo-lg">
-                        <img src="/images/logo-dark.png" alt="dark logo">
+                        <img src="/images/logo-ptpn-iv-regional-3.png" alt="dark logo">
                     </span>
                     <span class="logo-sm">
-                        <img src="/images/logo-sm.png" alt="small logo">
+                        <img src="/images/logo-ptpn-iv-regional-1-sm.png" alt="small logo">
                     </span>
                 </a>
             </div>

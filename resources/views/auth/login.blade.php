@@ -5,6 +5,7 @@
     @include('layouts.shared/title-meta', ['title' => 'Log In'])
     @include('layouts.shared/head-css')
     @vite(['resources/js/head.js'])
+    <link rel="icon" type="image/x-icon" href="{{ asset('/images/favicon-ptpn.ico') }}">
 </head>
 
 <body class="authentication-bg position-relative">
@@ -16,10 +17,9 @@
 
                         <!-- Logo -->
                         <div class="card-header py-4 text-center bg-primary">
-                            {{-- <a href="{{ route('index') }}">
-                                <h3 class="text-white">PTPN IV REGIONAL I</h3>
-                            </a> --}}
-                            <h3 class="text-white">PTPN IV REGIONAL I</h3>
+                            <span class="logo-lg">
+                                <img src="/images/logo-ptpn-iv-regional-2.png" alt="logo">
+                            </span>
                         </div>
 
                         <div class="card-body p-4">

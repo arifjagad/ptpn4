@@ -19,10 +19,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="d-flex card-header justify-content-between align-items-center">
-                        <h4 class="header-title">Jumlah Kegiatan Tiap Bulan - 2024</h4>
+                        <h4 class="header-title">Jumlah Kegiatan Anda Tiap Bulan - {{ date('Y') }}</h4>
                     </div>
                     <div class="card-body">
-                        <canvas id="kegiatanChart"></canvas>
+                        <div class="w-100" style="height: 320px;">
+                            <canvas id="kegiatanChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,6 +68,7 @@
                 data: chartData,
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
                         y: {
                             beginAtZero: true

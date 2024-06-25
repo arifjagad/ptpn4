@@ -2,14 +2,14 @@
 <div class="leftside-menu">
 
     <!-- Brand Logo Light -->
-    <a href="{{ url('karyawan/dashboard') }}" class="logo logo-light">
-        {{-- <span class="logo-lg">
-            <img src="/images/logo.png" alt="logo">
+    <a href="#" class="logo logo-light">
+        <span class="logo-lg">
+            <img src="/images/logo-ptpn-iv-regional-2.png" alt="logo">
         </span>
         <span class="logo-sm">
-            <img src="/images/logo-sm.png" alt="small logo">
-        </span> --}}
-        <h5 class="text-white mt-3 mb-2">PTPN IV REGIONAL I</h5>
+            <img src="/images/logo-ptpn-iv-regional-1-sm.png" alt="small logo">
+        </span>
+        {{-- <h5 class="text-white mt-3 mb-2">PTPN IV REGIONAL I</h5> --}}
     </a>
 
     <!-- Sidebar Hover Menu Toggle Button -->

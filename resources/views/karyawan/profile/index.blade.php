@@ -25,40 +25,32 @@
                             @csrf
                             @method('PUT')
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Nama Karyawan</label>
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
-                                            value="{{ old('name', auth()->user()->name) }}">
-                                    </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <label for="name" class="form-label">Nama Karyawan</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
+                                        value="{{ old('name', auth()->user()->name) }}">
                                     @error('name')
                                         <div>{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control @error('name') is-invalid @enderror" name="email" id="email"
-                                            value="{{ old('email', auth()->user()->email) }}">
-                                    </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control @error('name') is-invalid @enderror" name="email" id="email"
+                                        value="{{ old('email', auth()->user()->email) }}">
                                     @error('email')
                                         <div>{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
-                                    </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
                                     @error('password')
                                         <div>{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="mb-3">
-                                        <label for="password_confirmation" class="form-label">Password Confirm</label>
-                                        <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation">
-                                    </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <label for="password_confirmation" class="form-label">Password Confirm</label>
+                                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation">
                                     @error('password_confirmation')
                                         <div>{{ $message }}</div>
                                     @enderror

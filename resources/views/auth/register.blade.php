@@ -8,6 +8,7 @@
         'resources/js/head.js',
         'node_modules/select2/dist/css/select2.min.css',
     ])
+    <link rel="icon" type="image/x-icon" href="{{ asset('/images/favicon-ptpn.ico') }}">
 </head>
 
 <body class="authentication-bg">
@@ -17,10 +18,11 @@
             <div class="row justify-content-center">
                 <div class="col-xxl-4 col-lg-5">
                     <div class="card">
-                        <!-- Logo-->
+                        <!-- Logo -->
                         <div class="card-header py-4 text-center bg-primary">
-                            {{-- <span><img src="/im>ages/logo.png" alt="logo" height="22"></span> --}}
-                            <h3 class="text-white">PTPN IV REGIONAL I</h3>
+                            <span class="logo-lg">
+                                <img src="/images/logo-ptpn-iv-regional-2.png" alt="logo">
+                            </span>
                         </div>
 
                         <div class="card-body p-4">

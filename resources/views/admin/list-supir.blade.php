@@ -24,15 +24,15 @@
                             Tabel ini menampilkan daftar supir. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Filter --}}
-                        <div class="d-flex justify-content-end gap-2 mb-2">
-                            <div class="w-25">
+                        <div class="d-lg-flex justify-content-end gap-1 mb-2">
+                            <div class="mb-2">
                                 <select id="filter-jenis-kelamin" class="form-control select2" data-toggle="select2">
                                     <option value="">Pilih Jenis Kelamin</option>
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
                             </div>
-                            <div class="w-25">
+                            <div class="mb-2">
                                 <select id="filter-status-supir" class="form-control select2" data-toggle="select2">
                                     <option value="">Pilih Status Supir</option>
                                     @foreach ($statusSupirList as $statusSupir)
@@ -40,7 +40,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="w-25">
+                            <div class="mb-2">
                                 <select id="filter-status-perjalanan" class="form-control select2" data-toggle="select2">
                                     <option value="">Pilih Status Perjalanan</option>
                                     @foreach ($statusPerjalananList as $statusPerjalanan)
@@ -48,7 +48,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="flex items-center space-x-2">
+                            <div class="d-flex justify-content-end gap-1 mb-2">
                                 <button id="filter-button" class="btn btn-primary">Filter</button>
                                 <button id="reset-button" class="btn btn-secondary">Reset</button>
                             </div>
@@ -84,7 +84,7 @@
             var table = $('#datatable-supir').DataTable({
                 processing: true,
                 serverSide: true,
-                scrollY: true,
+                scrollX: true,
                 ordering: false,
                 'bDestroy': true,
                 ajax: {

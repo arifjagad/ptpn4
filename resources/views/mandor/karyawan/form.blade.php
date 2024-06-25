@@ -28,8 +28,8 @@
                             @if(isset($karyawan))
                                 @method('PUT')
                             @endif
-                            <div class="row g-2">
-                                <div class="mb-3 col-md-6">
+                            <div class="row g-2 mb-2">
+                                <div class="col-md-6">
                                     <label for="name" class="form-label">Nama Karyawan</label>
                                     <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', isset($karyawan) ? $karyawan->user->name : '') }}" >
                                     @error('name')
@@ -38,7 +38,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-6">
+                                <div class="col-md-6">
                                     <label for="asal_perusahaan" class="form-label">Asal Perusahaan Karyawan</label>
                                     <input type="text" id="asal_perusahaan" name="asal_perusahaan" class="form-control @error('asal_perusahaan') is-invalid @enderror" value="{{ old('asal_perusahaan', isset($karyawan) ? $karyawan->asal_perusahaan : '') }}" >
                                     @error('asal_perusahaan')
@@ -47,9 +47,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="row g-3">
-                                <div class="mb-3 col-md-4">
+                                <div class="col-md-4">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', isset($karyawan) ? $karyawan->user->email : '') }}" >
                                     @error('email')
@@ -58,7 +56,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-4">
+                                <div class="col-md-4">
                                     <label for="password" class="form-label">Password</label>
                                     <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" >
                                     @error('password')
@@ -67,7 +65,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-4">
+                                <div class="col-md-4">
                                     <label for="password_confirmation" class="form-label">Password Confirm</label>
                                     <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation">
                                     @error('password_confirmation')
