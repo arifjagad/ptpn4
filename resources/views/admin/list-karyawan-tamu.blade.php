@@ -45,6 +45,7 @@
                                     <th>NIK</th>
                                     <th>NIK SAP</th>
                                     <th>Nama Karyawan</th>
+                                    <th>Asal Perusahaan</th>
                                     <th>Jabatan</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Nomor Telp</th>
@@ -81,6 +82,7 @@
                     {data: 'nik', name: 'nik'},
                     {data: 'niksap', name: 'niksap'},
                     {data: 'user_name', name: 'user_name'},
+                    {data: 'asal_perusahaan', name: 'asal_perusahaan'},
                     {data: 'jabatan', name: 'jabatan'},
                     {data: 'jenis_kelamin', name: 'jenis_kelamin'},
                     {data: 'nomor_telp', name: 'nomor_telp'},

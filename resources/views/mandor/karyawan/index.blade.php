@@ -59,6 +59,7 @@
                                     <th>NIK</th>
                                     <th>NIK SAP</th>
                                     <th>Nama Karyawan</th>
+                                    <th>Asal Perusahaan</th>
                                     <th>Jabatan</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Nomor Telp</th>
@@ -85,7 +86,7 @@
             var table = $('#datatable-karyawan').DataTable({
                 processing: true,
                 serverSide: true,
-                scrollY: true,
+                scrollX: true,
                 ordering: false,
                 'bDestroy': true,
                 ajax: {
@@ -102,6 +103,7 @@
                     {data: 'nik', name: 'nik'},
                     {data: 'niksap', name: 'niksap'},
                     {data: 'nama_karyawan', name: 'nama_karyawan'},
+                    {data: 'asal_perusahaan', name: 'asal_perusahaan'},
                     {data: 'jabatan', name: 'jabatan'},
                     {data: 'jenis_kelamin', name: 'jenis_kelamin'},
                     {data: 'nomor_telp', name: 'nomor_telp'},
