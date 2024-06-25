@@ -53,12 +53,16 @@ $('#datatable-kegiatan').on('click', '.btn-view', function() {
                 $('#detail .modal-body').html(
                     `<table class="table">
                         <tr>
-                            <th style="width: 35%">NIK</th>
-                            <td style="width: 65%">${data['NIK']}</td>
+                            <th style="width: 40%">NIK</th>
+                            <td style="width: 60%">${data['NIK']}</td>
                         </tr>
                         <tr>
                             <th>Nama Karyawan</th>
                             <td>${data['Nama Karyawan']}</td>
+                        </tr>
+                        <tr>
+                            <th>Nomor Telp Karyawan</th>
+                            <td>${data['Nomor Telp Karyawan']}</td>
                         </tr>
                         <tr>
                             <th>Agenda</th>

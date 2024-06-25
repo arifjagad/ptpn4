@@ -14,33 +14,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $('#datatable-kegiatan').on('click', '.btn-view', function() {
-    var id = $(this).data('id');
-    console.log('View button clicked, ID:', id); // Debug log
-    $.ajax({
-        url: '{{ url()->current() }}' + '/'+ id,
-        type: 'GET',
-        success: function(data) {
-            console.log('Data retrieved:', data); // Debug log
-            // Populate modal fields with data
-            $('#detail .modal-body').html(`
-                <p><strong>NIK:</strong> ${data.nik}</p>
-                <p><strong>Nama Karyawan:</strong> ${data.karyawan_id}</p>
-                <p><strong>Agenda:</strong> ${data.agenda}</p>
-                <p><strong>Tujuan:</strong> ${data.tujuan}</p>
-                <p><strong>Tanggal Kegiatan:</strong> ${data.tanggal_kegiatan}</p>
-                <p><strong>Nama Supir:</strong> ${data.supir_id}</p>
-                <p><strong>Nama Mobil:</strong> ${data.mobil_id}</p>
-                <p><strong>Nopol:</strong> ${data.nopol}</p>
-                <p><strong>Status Kegiatan:</strong> ${data.status_kegiatan}</p>
-            `);
-            $('#detail').modal('show');
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX Error:', status, error); // Debug log
-        }
-    });
-});
-</script>
