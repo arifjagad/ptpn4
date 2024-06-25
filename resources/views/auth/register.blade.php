@@ -4,7 +4,10 @@
 <head>
     @include('layouts.shared/title-meta', ['title' => 'Register'])
     @include('layouts.shared/head-css')
-    @vite(['resources/js/head.js'])
+    @vite([
+        'resources/js/head.js',
+        'node_modules/select2/dist/css/select2.min.css',
+    ])
 </head>
 
 <body class="authentication-bg">
@@ -40,6 +43,7 @@
 
                                 <div class="mb-3">
                                     <label for="user_type" class="form-label">Role</label>
+                                    {{-- <select name="user_type" id="user_type" class="form-control select2" data-toggle="select2"> --}}
                                     <select class="form-select" name="user_type" id="user_type" required>
                                         <option value="mandor">Mandor</option>
                                         <option value="karyawan">Karyawan</option>

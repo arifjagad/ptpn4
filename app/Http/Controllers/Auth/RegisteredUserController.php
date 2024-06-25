@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Karyawan;
+use App\Models\Mandor;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -44,6 +46,18 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'user_type' => $request->user_type,
         ]);
+
+        if($request->user_type == 'karyawan'){
+            Karyawan::create([
+                'user_id' => $user->id,
+                'status_perjalanan' => 'Tersedia',
+            ]);
+        } else if($request->user_type == 'mandor'){
+            Mandor::create([
+                'user_id' => $user->id,
+                'status_mandor' => 'Aktif',
+            ]);
+        }
 
         event(new Registered($user));
 

@@ -1,4 +1,4 @@
-@extends('karyawan.layouts.vertical', ['page_title' => 'Profile'])
+@extends('karyawan.layouts.vertical', ['page_title' => 'Manajemen Profile'])
 
 @section('css')
     @vite([
@@ -14,14 +14,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">Profile</h4>
+                    <h4 class="page-title">Manajemen Profile</h4>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Update Profile</h4>
-                        <p class="text-muted fs-14">
-                            Lakukan update profile di form ini.
-                        </p>
+                        <div class="d-flex card-header justify-content-between align-items-center">
+                            <h4 class="header-title">Profile User</h4>
+                        </div>
                         <form action="{{ route('profile.user.karyawan.update') }}" method="POST">
                             @csrf
                             @method('PUT')

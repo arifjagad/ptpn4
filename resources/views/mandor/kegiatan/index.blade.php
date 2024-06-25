@@ -1,13 +1,9 @@
-@extends('mandor.layouts.vertical', ['page_title' => 'Daftar Kegiatan'])
+@extends('mandor.layouts.vertical', ['page_title' => 'Manajemen Kegiatan'])
 
 @section('css')
     @vite([
         'node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css',
-        'node_modules/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css',
-        'node_modules/datatables.net-fixedcolumns-bs5/css/fixedColumns.bootstrap5.min.css',
         'node_modules/datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.min.css',
-        'node_modules/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css',
-        'node_modules/datatables.net-select-bs5/css/select.bootstrap5.min.css',
         'node_modules/select2/dist/css/select2.min.css',
     ])
 @endsection
@@ -20,13 +16,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">Manajemen Kegiatan Tamu</h4>
+                    <h4 class="page-title">Manajemen Kegiatan</h4>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Daftar Kegiatan Tamu</h4>
+                        <h4 class="header-title">Daftar Kegiatan</h4>
                         <p class="text-muted fs-14">
-                            Tabel ini menampilkan daftar tamu yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
+                            Tabel ini menampilkan daftar kegiatan. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Button tambah kegiatan --}}
                         <div class="d-flex justify-content-end mb-2">

@@ -1,4 +1,4 @@
-@extends('admin.layouts.vertical', ['page_title' => 'Daftar Mobil'])
+@extends('admin.layouts.vertical', ['page_title' => 'Manajemen Mobil'])
 
 @section('css')
     @vite([ 
@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <h4 class="header-title">Daftar Mobil</h4>
                         <p class="text-muted fs-14">
-                            Tabel ini menampilkan daftar mobil yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
+                            Tabel ini menampilkan daftar mobil. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Filter --}}
                         <div class="d-flex justify-content-end gap-2 mb-2">

@@ -1,4 +1,4 @@
-@extends('mandor.layouts.vertical', ['page_title' => 'Daftar karyawan'])
+@extends('mandor.layouts.vertical', ['page_title' => 'Manajemen Karyawan Tamu'])
 
 @section('css')
     @vite([
@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <h4 class="header-title">Daftar Karyawan Tamu</h4>
                         <p class="text-muted fs-14">
-                            Tabel ini menampilkan daftar tamu yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
+                            Tabel ini menampilkan daftar karyawan tamu. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Button tambah karyawan --}}
                         <div class="d-flex justify-content-end mb-2">
@@ -93,6 +93,7 @@
                     type: 'GET',
                     /* Menjalankan filter */
                     data: function(d) {
+                        d.jenis_kelamin = $('#filter-jenis-kelamin').val();
                         d.status_perjalanan = $('#filter-status-perjalanan').val();
                     },
                 },

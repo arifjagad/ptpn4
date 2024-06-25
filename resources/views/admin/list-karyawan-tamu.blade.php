@@ -1,4 +1,4 @@
-@extends('admin.layouts.vertical', ['page_title' => 'List Karyawan Tamu'])
+@extends('admin.layouts.vertical', ['page_title' => 'Manajemen Karyawan Tamu'])
 
 @section('css')
     @vite([
@@ -16,13 +16,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">List User</h4>
+                    <h4 class="page-title">Manajemen Karyawan Tamu</h4>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Fixed Header</h4>
+                        <h4 class="header-title">Daftar Karyawan Tamu</h4>
                         <p class="text-muted fs-14">
-                            The FixedHeader will freeze in place the header and/or footer in a DataTable, ensuring that title information will remain always visible.
+                            Tabel ini menampilkan daftar karyawan tamu. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         <!-- Filters -->
                         <div class="d-flex justify-content-end gap-2 mb-2">

@@ -10,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 
 class KaryawanController extends Controller
 {
@@ -29,20 +30,24 @@ class KaryawanController extends Controller
             $jenisKelamin = $request->get('jenis_kelamin');
             $statusPerjalanan = $request->get('status_perjalanan');
 
-            $query = Karyawan::query();
+            $cacheKey = 'mandor_karyawan_data_' . ($jenisKelamin ?? 'all') . '_' . ($statusPerjalanan ?? 'all');
 
-            /* Mengecek kondisi untuk filter */
-            if ($jenisKelamin) {
-                $query->where('jenis_kelamin', $jenisKelamin);
-            }
-            if ($statusPerjalanan) {
-                $query->where('status_perjalanan', $statusPerjalanan);
-            }
+            $karyawanData = Cache::remember($cacheKey, 60, function() use ($jenisKelamin, $statusPerjalanan) {
+                $query = Karyawan::query();
 
-            $query->whereNotIn('id', [4, 5])->get();
+                /* Mengecek kondisi untuk filter */
+                if ($jenisKelamin) {
+                    $query->where('jenis_kelamin', $jenisKelamin);
+                }
+                if ($statusPerjalanan) {
+                    $query->where('status_perjalanan', $statusPerjalanan);
+                }
+
+                return $query->whereNotIn('id', [4, 5])->get();
+            });
 
             /* Menampilkan data yang ada ke datatables, dan menambahkan kolom */
-            return DataTables::of($query)
+            return DataTables::of($karyawanData)
                 ->addColumn('nama_karyawan', function ($karyawan) {
                     return $karyawan->user->name;
                 })

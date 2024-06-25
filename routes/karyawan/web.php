@@ -17,7 +17,7 @@ Route::group(['prefix' => '/', 'middleware' => ['auth', 'user_type:karyawan,kary
     Route::put('/kuesioner/jawaban/{id}', [KuesionerController::class, 'update'])->name('kuesioner.update');
     Route::get('/kuesioner/downloadPdf/{id}', [KuesionerController::class, 'downloadPdf'])->name('kuesioner.downloadPdf');
 
-    Route::group(['middleware' => 'role.karyawan'], function () {
+    Route::group(['middleware' => ['user_type.karyawan', 'auth']], function () {
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
         Route::put('/profile/user/karyawan/update', [ProfileController::class, 'update'])->name('profile.user.karyawan.update');
         Route::put('/profile/karyawan/update', [ProfileController::class, 'updateKaryawan'])->name('profile.karyawan.update');

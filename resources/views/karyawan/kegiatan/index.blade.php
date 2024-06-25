@@ -1,4 +1,4 @@
-@extends('karyawan.layouts.vertical', ['page_title' => 'List Kegiatan'])
+@extends('karyawan.layouts.vertical', ['page_title' => 'Manajemen Kegiatan Tamu'])
 
 @section('css')
     @vite([
@@ -22,7 +22,7 @@
                     <div class="card-body">
                         <h4 class="header-title">Daftar Kegiatan Tamu</h4>
                         <p class="text-muted fs-14">
-                            Tabel ini menampilkan daftar tamu yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
+                            Tabel ini menampilkan daftar karyawan tamu. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Filter --}}
                         <div class="d-flex justify-content-end gap-2 mb-2">

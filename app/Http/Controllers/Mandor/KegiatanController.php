@@ -222,10 +222,6 @@ class KegiatanController extends Controller
                 ->find($id);
         });
         
-        if (!$kegiatan) {
-            return response()->json(['message' => 'Kegiatan not found'], 404);
-        }
-        
         $kegiatan->tujuan = json_decode($kegiatan->tujuan, true);
         $kegiatan->tujuan = implode(', ', $kegiatan->tujuan);
 

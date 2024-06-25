@@ -1,4 +1,4 @@
-@extends('admin.layouts.vertical', ['page_title' => 'Daftar Karyawan Pelaksana'])
+@extends('admin.layouts.vertical', ['page_title' => 'Manajemen Karyawan Pelaksana'])
 
 @section('css')
     @vite([
