@@ -30,8 +30,8 @@
                                 @method('PUT')
                             @endif
                             @if(!isset($kegiatan))
-                                <div class="row g-3">
-                                    <div class="mb-3 col-md-4">
+                                <div class="row g-2 mb-2">
+                                    <div class="col-md-4">
                                         <label for="tipe_karyawan" class="form-label">Tipe Karyawan</label>
                                         <select id="tipe_karyawan" name="tipe_karyawan" class="form-control select2 @error('tipe_karyawan') is-invalid @enderror" data-toggle="select2">
                                             <option value="">Pilih Tipe Karyawan</option>
@@ -45,7 +45,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="mb-3 col-md-4">
+                                    <div class="col-md-4">
                                         <label for="karyawan_detail" class="form-label">Nama Karyawan</label>
                                         <select id="karyawan_detail" name="karyawan_detail" class="form-control select2 @error('karyawan_detail') is-invalid @enderror" data-toggle="select2">
                                             <!-- Options will be populated by AJAX -->
@@ -57,7 +57,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="mb-3 col-md-4">
+                                    <div class="col-md-4">
                                         <div class="position-relative" id="tanggal_kegiatan">
                                             <label class="form-label">Tanggal Kegiatan</label>
                                             <input type="text" id="tanggal_kegiatan" name="tanggal_kegiatan" class="form-control @error('tanggal_kegiatan') is-invalid @enderror" placeholder="Tanggal Kegiatan" data-provide="datepicker" data-date-format="d-M-yyyy" data-date-container="#tanggal_kegiatan" value="{{ old('tanggal_kegiatan', isset($kegiatan) ? \Carbon\Carbon::parse($kegiatan->tanggal_kegiatan)->format('d-M-Y') : '') }}">
@@ -70,8 +70,8 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="row g-2">
-                                <div class="mb-3 col-md-6">
+                            <div class="row g-2 mb-2">
+                                <div class="col-md-6">
                                     <label class="form-label" for="agenda">Agenda</label>
                                     <textarea class="form-control @error('agenda') is-invalid @enderror" id="agenda" name="agenda" placeholder="Agenda" style="height: 60px">{{ old('agenda', isset($kegiatan) ? $kegiatan->agenda : '') }}</textarea>
                                     @error('agenda')
@@ -80,7 +80,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-6">
+                                <div class="col-md-6">
                                     <label class="form-label" for="tujuan">Tujuan</label>
                                     <textarea class="form-control @error('tujuan') is-invalid @enderror" id="tujuan" name="tujuan" placeholder="Tujuan" style="height: 60px">{{ old('tujuan', isset($kegiatan) ? $kegiatan->tujuan : '') }}</textarea>
                                     @error('tujuan')
@@ -89,27 +89,14 @@
                                         </div>
                                     @enderror
                                 </div>
-                                {{-- <div class="mb-3 col-md-6">
-                                    <label class="form-label" for="tujuan">Tujuan</label>
-                                    @php
-                                        $tujuan = old('tujuan', isset($kegiatan) ? $kegiatan->tujuan : []);
-                                        $tujuanString = implode(', ', $tujuan);
-                                    @endphp
-                                    <textarea class="form-control @error('tujuan') is-invalid @enderror" id="tujuan" name="tujuan" placeholder="Tujuan" style="height: 60px">{{ $tujuanString }}</textarea>
-                                    @error('tujuan')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div> --}}
                             </div>
                             @if(!isset($kegiatan))
-                                <div class="row g-3">
-                                    <div class="mb-3 col-md-4">
+                                <div class="row g-2 mb-2">
+                                    <div class="col-md-4">
                                         <label class="form-label">Nama Mandor</label>
                                         <input type="text" id="mandor_nama" name="mandor_nama" class="form-control" value="{{ auth()->user()->name }}" disabled>
                                     </div>
-                                    <div class="mb-3 col-md-4">
+                                    <div class="col-md-4">
                                         <label for="supir_id" class="form-label">Nama Supir</label>
                                         <select id="supir_id" name="supir_id" class="form-control select2 @error('supir_id') is-invalid @enderror" data-toggle="select2">
                                             <option value="">Pilih Supir</option>
@@ -123,7 +110,7 @@
                                             </div>
                                         @enderror
                                     </div>
-                                    <div class="mb-3 col-md-4">
+                                    <div class="col-md-4">
                                         <label for="mobil_id" class="form-label">Nama Mobil</label>
                                         <select id="mobil_id" name="mobil_id" class="form-control select2 @error('mobil_id') is-invalid @enderror" data-toggle="select2">
                                             <option value="">Pilih Mobil</option>

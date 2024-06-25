@@ -1,4 +1,4 @@
-@extends('admin.layouts.vertical', ['page_title' => 'Daftar Pertanyaan'])
+@extends('admin.layouts.vertical', ['page_title' => 'Manajemen Pertanyaan'])
 
 @section('css')
     @vite([
@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <h4 class="header-title">Daftar Pertanyaan</h4>
                         <p class="text-muted fs-14">
-                            Tabel ini menampilkan daftar Pertanyaan yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
+                            Tabel ini menampilkan daftar pertanyaan. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Button tambah pertanyaan --}}
                         {{-- <div class="d-flex justify-content-end mb-2">
@@ -57,7 +57,7 @@
             var table = $('#datatable-pertanyaan').DataTable({
                 processing: true,
                 serverSide: true,
-                scrollY: true,
+                scrollX: true,
                 ordering: false,
                 'bDestroy': true,
                 ajax: {

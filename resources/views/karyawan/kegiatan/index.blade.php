@@ -1,4 +1,4 @@
-@extends('karyawan.layouts.vertical', ['page_title' => 'List Kegiatan'])
+@extends('karyawan.layouts.vertical', ['page_title' => 'Manajemen Kegiatan'])
 
 @section('css')
     @vite([
@@ -16,17 +16,17 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">Manajemen Kegiatan Tamu</h4>
+                    <h4 class="page-title">Manajemen Kegiatan</h4>
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Daftar Kegiatan Tamu</h4>
+                        <h4 class="header-title">Daftar Kegiatan</h4>
                         <p class="text-muted fs-14">
-                            Tabel ini menampilkan daftar tamu yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
+                            Tabel ini menampilkan daftar karyawan. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Filter --}}
-                        <div class="d-flex justify-content-end gap-2 mb-2">
-                            <div class="w-25">
+                        <div class="d-lg-flex justify-content-end gap-1">
+                            <div class="mb-2">
                                 <select id="filter-status-kegiatan" class="form-control select2" data-toggle="select2">
                                     <option value="">Pilih Status Kegiatan</option>
                                     @foreach ($statuskegiatanList as $statusKegiatan)
@@ -34,7 +34,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="flex items-center space-x-2">
+                            <div class="d-flex justify-content-end gap-1 mb-2">
                                 <button id="filter-button" class="btn btn-primary">Filter</button>
                                 <button id="reset-button" class="btn btn-secondary">Reset</button>
                             </div>
@@ -121,8 +121,8 @@
                     $('#detail .modal-body').html(
                         `<table class="table">
                             <tr>
-                                <th style="width: 35%">NIK</th>
-                                <td style="width: 65%">${data['NIK']}</td>
+                                <th style="width: 40%">NIK</th>
+                                <td style="width: 60%">${data['NIK']}</td>
                             </tr>
                             <tr>
                                 <th>Nama Karyawan</th>
@@ -143,6 +143,10 @@
                             <tr>
                                 <th>Nama Supir</th>
                                 <td>${data['Nama Supir']}</td>
+                            </tr>
+                            <tr>
+                                <th>Nomor Telp Supir</th>
+                                <td>${data['Nomor Telp Supir']}</td>
                             </tr>
                             <tr>
                                 <th>Nama Mobil</th>

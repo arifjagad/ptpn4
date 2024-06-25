@@ -17,7 +17,7 @@ class RoleKaryawanMiddleware
     public function handle($request, Closure $next)
     {
         // Periksa apakah pengguna sudah login dan memiliki role karyawan
-        if (Auth::check() && Auth::user()->role === 'karyawan') {
+        if (Auth::check() && Auth::user()->user_type === 'karyawan') {
             return $next($request);
         }
 

@@ -90,10 +90,11 @@ class ProfileController extends Controller
         //
     }
 
-    public function updateMandor(Request $request){
+    public function updateKaryawan(Request $request){
         $validator = Validator::make($request->all(), [
             'nik' => 'required|string|max:255|',
             'niksap' => 'required|string|max:255|',
+            // 'asal_perusahaan' => 'required|string|max:255|',
             'nomor_telp' => 'required|string|regex:/^08\d{8,12}$/',
             'jenis_kelamin' => 'required|string|in:Laki-laki,Perempuan',
         ]);
@@ -106,7 +107,8 @@ class ProfileController extends Controller
         $user = User::find(auth()->id());
         $karyawan = $user->karyawan;
         $karyawan->nik = $request->nik;
-        $karyawan->niksap = $request->niksap;
+        // $karyawan->niksap = $request->niksap;
+        $karyawan->asal_perusahaan = $request->asal_perusahaan;
         $karyawan->jabatan = 'TAMU';
         $karyawan->nomor_telp = $request->nomor_telp;
         $karyawan->jenis_kelamin = $request->jenis_kelamin;

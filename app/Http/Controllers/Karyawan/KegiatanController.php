@@ -80,8 +80,14 @@ class KegiatanController extends Controller
                     return '<span class="' . $badgeClass . '">' . $status . '</span>';
                 })
                 /* Action */
-                ->addColumn('action', function($row) {
-                    $btn = '<button type="button" class="btn btn-info btn-sm me-1 btn-view" data-id="'. $row->id .'" data-bs-toggle="modal" data-bs-target="#detail">View</button>';
+                ->addColumn('action', function($kegiatan) {
+                    $btn = '';
+                    if($kegiatan->status_kegiatan === 'Selesai'){
+                        $btn .= '<button type="button" class="btn btn-info btn-sm me-1 btn-view" data-id="'. $kegiatan->id .'" data-bs-toggle="modal" data-bs-target="#detail">View</button>';
+                    } else {
+                        $btn .= '<a href="https://wa.me/'.$kegiatan->supir->nomor_telp.'" class="btn btn-success btn-sm me-1"><i class="ri-whatsapp-line"></i> Hubungi Supir</a>';
+                    }
+
                     return $btn;
                 })
                 ->rawColumns(['status_kegiatan', 'action', 'status_perjalanan']) // Raw data
@@ -139,6 +145,7 @@ class KegiatanController extends Controller
             'Tujuan' => $kegiatan->tujuan,
             'Tanggal Kegiatan' => Carbon::parse($kegiatan->tanggal_kegiatan)->translatedFormat('d F Y'),
             'Nama Supir' => $kegiatan->supir->nama_supir,
+            'Nomor Telp Supir' => $kegiatan->supir->nomor_telp,
             'Nama Mobil' => $kegiatan->mobil->nama_mobil, 
             'Nopol' => $kegiatan->mobil->nopol,
             'Status Kegiatan' => $kegiatan->status_kegiatan,

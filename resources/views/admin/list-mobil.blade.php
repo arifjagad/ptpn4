@@ -1,4 +1,4 @@
-@extends('admin.layouts.vertical', ['page_title' => 'Daftar Mobil'])
+@extends('admin.layouts.vertical', ['page_title' => 'Manajemen Mobil'])
 
 @section('css')
     @vite([ 
@@ -21,11 +21,11 @@
                     <div class="card-body">
                         <h4 class="header-title">Daftar Mobil</h4>
                         <p class="text-muted fs-14">
-                            Tabel ini menampilkan daftar mobil yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
+                            Tabel ini menampilkan daftar mobil. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Filter --}}
-                        <div class="d-flex justify-content-end gap-2 mb-2">
-                            <div class="w-25">
+                        <div class="d-lg-flex justify-content-end gap-1">
+                            <div class="mb-2">
                                 <select id="filter-status-pemakaian" class="form-control select2" data-toggle="select2">
                                     <option value="">Pilih Status Pemakaian</option>
                                     @foreach ($statusPemakaianList as $statusPemakaian)
@@ -33,7 +33,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="flex items-center space-x-2">
+                            <div class="d-flex justify-content-end gap-1 mb-2">
                                 <button id="filter-button" class="btn btn-primary">Filter</button>
                                 <button id="reset-button" class="btn btn-secondary">Reset</button>
                             </div>

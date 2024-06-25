@@ -1,4 +1,4 @@
-@extends('mandor.layouts.vertical', ['page_title' => 'Daftar karyawan'])
+@extends('mandor.layouts.vertical', ['page_title' => 'Manajemen Karyawan Tamu'])
 
 @section('css')
     @vite([
@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <h4 class="header-title">Daftar Karyawan Tamu</h4>
                         <p class="text-muted fs-14">
-                            Tabel ini menampilkan daftar tamu yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
+                            Tabel ini menampilkan daftar karyawan tamu. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Button tambah karyawan --}}
                         <div class="d-flex justify-content-end mb-2">
@@ -31,15 +31,15 @@
                             </a>
                         </div>
                         {{-- Filter --}}
-                        <div class="d-flex justify-content-end gap-2 mb-2">
-                            <div class="w-25">
+                        <div class="d-lg-flex justify-content-end gap-1">
+                            <div class="mb-2">
                                 <select id="filter-jenis-kelamin" class="form-control select2" data-toggle="select2">
                                     <option value="">Pilih Jenis Kelamin</option>
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
                             </div>
-                            <div class="w-25">
+                            <div class="mb-2">
                                 <select id="filter-status-perjalanan" class="form-control select2" data-toggle="select2">
                                     <option value="">Pilih Status Perjalanan</option>
                                     @foreach ($statusPerjalananList as $statusPerjalanan)
@@ -47,7 +47,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="flex items-center space-x-2">
+                            <div class="d-flex justify-content-end gap-1 mb-2">
                                 <button id="filter-button" class="btn btn-primary">Filter</button>
                                 <button id="reset-button" class="btn btn-secondary">Reset</button>
                             </div>
@@ -59,6 +59,7 @@
                                     <th>NIK</th>
                                     <th>NIK SAP</th>
                                     <th>Nama Karyawan</th>
+                                    <th>Asal Perusahaan</th>
                                     <th>Jabatan</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Nomor Telp</th>
@@ -85,7 +86,7 @@
             var table = $('#datatable-karyawan').DataTable({
                 processing: true,
                 serverSide: true,
-                scrollY: true,
+                scrollX: true,
                 ordering: false,
                 'bDestroy': true,
                 ajax: {
@@ -93,6 +94,7 @@
                     type: 'GET',
                     /* Menjalankan filter */
                     data: function(d) {
+                        d.jenis_kelamin = $('#filter-jenis-kelamin').val();
                         d.status_perjalanan = $('#filter-status-perjalanan').val();
                     },
                 },
@@ -101,6 +103,7 @@
                     {data: 'nik', name: 'nik'},
                     {data: 'niksap', name: 'niksap'},
                     {data: 'nama_karyawan', name: 'nama_karyawan'},
+                    {data: 'asal_perusahaan', name: 'asal_perusahaan'},
                     {data: 'jabatan', name: 'jabatan'},
                     {data: 'jenis_kelamin', name: 'jenis_kelamin'},
                     {data: 'nomor_telp', name: 'nomor_telp'},

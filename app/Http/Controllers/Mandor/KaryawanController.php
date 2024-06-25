@@ -10,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 
 class KaryawanController extends Controller
 {
@@ -39,10 +40,10 @@ class KaryawanController extends Controller
                 $query->where('status_perjalanan', $statusPerjalanan);
             }
 
-            $query->whereNotIn('id', [4, 5])->get();
+            $karyawanData = $query->whereNotIn('id', [4, 5])->get();
 
             /* Menampilkan data yang ada ke datatables, dan menambahkan kolom */
-            return DataTables::of($query)
+            return DataTables::of($karyawanData)
                 ->addColumn('nama_karyawan', function ($karyawan) {
                     return $karyawan->user->name;
                 })
@@ -91,14 +92,17 @@ class KaryawanController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed',
+            'asal_perusahaan' => 'required|string|max:255',
         ]);
     
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
             Alert::error('Gagal!', 'Gagal menambahkan data karyawan');
         }
-    
+        
+        //dd($request->all());
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -107,6 +111,7 @@ class KaryawanController extends Controller
         ]);
         Karyawan::create([
             'user_id' => $user->id,
+            'asal_perusahaan' => $request->asal_perusahaan,
         ]);
 
         Alert::success('Berhasil!', 'Berhasil menambahkan data karyawan');
@@ -141,6 +146,7 @@ class KaryawanController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8',
+            'asal_perusahaan' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -154,6 +160,10 @@ class KaryawanController extends Controller
             'password' => $request->password ? Hash::make($request->password) : $user->password,
         ]);
 
+        $karyawan->update([
+            'asal_perusahaan' => $request->asal_perusahaan,
+        ]);
+        
         Alert::success('Berhasil!', 'Berhasil memperbarui data karyawan');
         return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil diperbarui.');
     }
@@ -165,9 +175,13 @@ class KaryawanController extends Controller
     {
         //
         $karyawan = Karyawan::find($id);
-        $karyawan->delete();
 
         try{
+            $user = $karyawan->user;
+
+            $karyawan->delete();
+            $user->delete();
+
             Alert::success('Berhasil!', 'Berhasil menghapus data karyawan');
             return redirect()->route('karyawan.index')->with('success', 'Data karyawan berhasil di hapus');
         } catch (\Exception $e){

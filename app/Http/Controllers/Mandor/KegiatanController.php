@@ -91,19 +91,19 @@ class KegiatanController extends Controller
                     return '<span class="' . $badgeClass . '">' . $status . '</span>';
                 })
                 /* Action */
-                ->addColumn('action', function($row) {
-                    $editUrl = route('kegiatan.form', $row->id);
-                    $deleteUrl = route('kegiatan.destroy', $row->id);
+                ->addColumn('action', function($kegiatan) {
+                    $editUrl = route('kegiatan.form', $kegiatan->id);
+                    $deleteUrl = route('kegiatan.destroy', $kegiatan->id);
                 
                     $btn = '';
                     /* Kondisi button */
-                    if ($row->status_kegiatan === 'Sedang Diproses') {
-                        $btn .= '<button type="button" class="btn btn-success btn-sm me-1 btn-finished" data-id="'. $row->id .'" data-bs-toggle="modal" data-bs-target="#finished">Finished</button>';
-                        $btn .= '<button type="button" class="btn btn-info btn-sm me-1 btn-view" data-id="'. $row->id .'" data-bs-toggle="modal" data-bs-target="#detail">View</button>';
+                    if ($kegiatan->status_kegiatan === 'Sedang Diproses') {
+                        $btn .= '<button type="button" class="btn btn-success btn-sm me-1 btn-finished" data-id="'. $kegiatan->id .'" data-bs-toggle="modal" data-bs-target="#finished">Finished</button>';
+                        $btn .= '<button type="button" class="btn btn-info btn-sm me-1 btn-view" data-id="'. $kegiatan->id .'" data-bs-toggle="modal" data-bs-target="#detail">View</button>';
                         $btn .= '<a href="'. $editUrl .'" class="btn btn-primary btn-sm me-1">Edit</a>';
                         $btn .= '<a href="'. $deleteUrl .'" class="btn btn-danger btn-sm" data-confirm-delete="true">Delete</a>';
                     } else {
-                        $btn .= '<button type="button" class="btn btn-info btn-sm me-1 btn-view" data-id="'. $row->id .'" data-bs-toggle="modal" data-bs-target="#detail">View</button>';
+                        $btn .= '<button type="button" class="btn btn-info btn-sm me-1 btn-view" data-id="'. $kegiatan->id .'" data-bs-toggle="modal" data-bs-target="#detail">View</button>';
                     }
                     
                     return $btn;
@@ -222,10 +222,6 @@ class KegiatanController extends Controller
                 ->find($id);
         });
         
-        if (!$kegiatan) {
-            return response()->json(['message' => 'Kegiatan not found'], 404);
-        }
-        
         $kegiatan->tujuan = json_decode($kegiatan->tujuan, true);
         $kegiatan->tujuan = implode(', ', $kegiatan->tujuan);
 
@@ -236,6 +232,11 @@ class KegiatanController extends Controller
                 : ($kegiatan->karyawan_id == 5 
                     ? KaryawanPelaksana::where('NIK', $kegiatan->nik)->pluck('NAMA')->first() 
                     : $kegiatan->karyawan->user->name),
+            'Nomor Telp Karyawan' => $kegiatan->karyawan_id == 4 
+            ? KaryawanPimpinan::where('NIK', $kegiatan->nik)->pluck('hp')->first()
+            : ($kegiatan->karyawan_id == 5 
+                ? KaryawanPelaksana::where('NIK', $kegiatan->nik)->pluck('noPhone')->first() 
+                : $kegiatan->karyawan->nomor_telp),
             'Agenda' => $kegiatan->agenda,
             'Tujuan' => $kegiatan->tujuan,
             'Tanggal Kegiatan' => Carbon::parse($kegiatan->tanggal_kegiatan)->translatedFormat('d F Y'),

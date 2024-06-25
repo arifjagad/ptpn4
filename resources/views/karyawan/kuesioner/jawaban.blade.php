@@ -1,4 +1,4 @@
-@extends('karyawan.layouts.vertical', ['page_title' => 'Pengisian Kuesioner'])
+@extends('karyawan.layouts.vertical', ['page_title' => 'Kuesioner'])
 
 @section('css')
     @vite([
@@ -15,26 +15,25 @@
             <div class="col-12">
                 <div class="page-title-box">
                     {{-- <h4 class="page-title">{{ isset($pertanyaan) ? 'Edit pertanyaan' : 'Tambah pertanyaan' }}</h4> --}}
-                    <h4 class="page-title">Pengisian Kuesioner</h4>
+                    <h4 class="page-title">Kuesioner</h4>
                 </div>
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Pengisian Kuesioner</h4>
                         <p class="text-muted fs-14">
-                            Pastikan Anda mengisi semua data dengan benar dan sesuai.
+                            Pastikan Anda menjawab kuesioner dengan sejujurnya.
                         </p>
+                        <hr>
                         <form action="{{ route('kuesioner.update', $kuesioner->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row">
                                 @foreach($pertanyaan as $index => $question)
-                                    <div class="mb-3 col-md-12">
-                                        <div class="repeater-item d-flex align-items-center my-2 gap-2">
-                                            <div class="col-md-8">
-                                                <input type="text" name="pertanyaan[]" class="form-control" value="{{ $question }}" disabled>
-                                                <input type="hidden" name="pertanyaan[{{ $index }}]" value="{{ $question }}">
-                                            </div>
-                                            <div class="col-md-4" data-select2-id="select2-data-{{ $index }}">
+                                    <div class="mb-2">
+                                        <div class="repeater-item my-1">
+                                            <h5>{{ $index + 1 }}. {{ $question }}</h5>
+                                            <input type="hidden" name="pertanyaan[{{ $index }}]" value="{{ $question }}">
+                                            <div data-select2-id="select2-data-{{ $index }}">
                                                 <select id="pilihan-jawaban" name="jawaban[{{ $index }}]" class="form-control select2 @error('jawaban.' . $index) is-invalid @enderror" data-toggle="select2" data-select2-id="{{ $index }}">
                                                     <option value="">Pilih Jawaban</option>
                                                     <option value="Sangat Baik" {{ old('jawaban.' . $index) == 'Sangat Baik' ? 'selected' : '' }}>Sangat Baik</option>

@@ -1,4 +1,4 @@
-@extends('karyawan.layouts.vertical', ['page_title' => 'Daftar Kuesioner'])
+@extends('karyawan.layouts.vertical', ['page_title' => 'Manajemen Kuesioner'])
 
 @section('css')
 @vite([
@@ -22,11 +22,11 @@
                     <div class="card-body">
                         <h4 class="header-title">Daftar Kuesioner</h4>
                         <p class="text-muted fs-14">
-                            Tabel ini menampilkan daftar kuesioner yang aktif. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
+                            Tabel ini menampilkan daftar kuesioner. Anda dapat mencari, dan memfilter data untuk menemukan informasi yang Anda butuhkan.
                         </p>
                         {{-- Filter --}}
-                        <div class="d-flex justify-content-end gap-2 mb-2">
-                            <div class="w-25">
+                        <div class="d-lg-flex justify-content-end gap-1">
+                            <div class="mb-2">
                                 <select id="filter-status-kuesioner" class="form-control select2" data-toggle="select2">
                                     <option value="">Pilih Status Kuesioner</option>
                                     @foreach ($statusKuesionerList as $statusKuesioner)
@@ -34,7 +34,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="flex items-center space-x-2">
+                            <div class="d-flex justify-content-end gap-1 mb-2">
                                 <button id="filter-button" class="btn btn-primary">Filter</button>
                                 <button id="reset-button" class="btn btn-secondary">Reset</button>
                             </div>

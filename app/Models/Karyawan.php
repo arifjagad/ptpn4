@@ -20,6 +20,7 @@ class Karyawan extends Model
         'nomor_telp',
         'jenis_kelamin',
         'status_perjalanan',
+        'asal_perusahaan',
     ];
 
     protected $attributes = [
